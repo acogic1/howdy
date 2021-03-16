@@ -16,5 +16,7 @@ public class Komentar {
 
     private Integer userId;
 
+    private Integer statusId;
+
     private String text;
 }
