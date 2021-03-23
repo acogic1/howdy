@@ -3,6 +3,7 @@ package com.example.howdyMessagesFollowersFollowing.Message;
 import com.example.howdyMessagesFollowersFollowing.User.User;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 import java.sql.Time;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
@@ -18,18 +19,29 @@ public class Message {
 
 
     @ManyToOne
+    @NotNull(message = "Variable id_sender must not be null")
     @JoinColumn(name = "id_sender")
     private User id_sender;
 
     @ManyToOne
+    @NotNull(message = "Variable id_reciever must not be null")
     @JoinColumn(name = "id_reciever")
     private User id_reciever;
 
+    @NotNull(message = "Variable date_time must not be null")
     private Date date_time;
+    @NotNull(message = "Variable content must not be null")
     private String content;
 
-    public Message(Long id, User id_sender, User id_reciever, Date date_time, String content) {
+    public Message(Long id,@NotNull(message = "Variable id_sender must not be null") User id_sender,@NotNull(message = "Variable id_reciever must not be null") User id_reciever,@NotNull(message = "Variable date_time must not be null") Date date_time,@NotNull(message = "Variable content must not be null") String content) {
         this.id = id;
+        this.id_sender = id_sender;
+        this.id_reciever = id_reciever;
+        this.date_time = date_time;
+        this.content = content;
+    }
+
+    public Message(@NotNull(message = "Variable id_sender must not be null") User id_sender,@NotNull(message = "Variable id_reciever must not be null") User id_reciever,@NotNull(message = "Variable date_time must not be null") Date date_time,@NotNull(message = "Variable content must not be null") String content) {
         this.id_sender = id_sender;
         this.id_reciever = id_reciever;
         this.date_time = date_time;

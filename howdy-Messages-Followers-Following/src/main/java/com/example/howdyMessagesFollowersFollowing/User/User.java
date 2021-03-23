@@ -1,5 +1,6 @@
 package com.example.howdyMessagesFollowersFollowing.User;
 
+import javax.validation.constraints.NotNull;
 import javax.persistence.*;
 import javax.swing.*;
 
@@ -10,11 +11,15 @@ public class User {
     @Column(name = "user_id")
     private Long id;
 
+    @NotNull(message = "Variable username must not be null")
     private String username;
     private ImageIcon picture;
 
-    public User(Long id, String username) {
+    public User(Long id,@NotNull(message = "Variable username must not be null") String username) {
         this.id = id;
+        this.username = username;
+    }
+    public User(@NotNull(message = "Variable username must not be null") String username) {
         this.username = username;
     }
 
