@@ -2,6 +2,7 @@ package com.example.accessingdatamysql.model;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -10,9 +11,10 @@ import javax.persistence.Id;
 
 @Entity // This tells Hibernate to make a table out of this class
 @Data
-public class Status {
+@NoArgsConstructor
+public class Post {
     @Id
-    @GeneratedValue(strategy=GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer id;
 
     private Integer userId;
@@ -20,7 +22,7 @@ public class Status {
     private String text;
 
 
-    public Status(String text, Integer userId) {
+    public Post(String text, Integer userId) {
         this.text = text;
         this.userId = userId;
 
