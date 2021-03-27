@@ -17,9 +17,9 @@ public class AccessingDataMysqlApplication {
     @Bean
     public CommandLineRunner demo(PostRepository postRepository) {
         return (args -> {
-            postRepository.save(new Post("post1", 1));
-            postRepository.save(new Post("post2", 2));
-            postRepository.save(new Post("post3", 3));
+            postRepository.save(new Post("post1", 1L));
+            postRepository.save(new Post("post2", 2L));
+            postRepository.save(new Post("post3", 3L));
         });
     }
 
