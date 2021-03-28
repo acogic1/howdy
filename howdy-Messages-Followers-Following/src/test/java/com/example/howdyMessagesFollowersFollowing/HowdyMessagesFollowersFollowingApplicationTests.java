@@ -43,9 +43,6 @@ class HowdyMessagesFollowersFollowingApplicationTests {
 	@Autowired
 	MessageRepository messageRepository;
 
-	@Test
-	void contextLoads() {
-	}
 
 	@Test
 	public void testUser() throws URISyntaxException {
