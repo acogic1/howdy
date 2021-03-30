@@ -4,24 +4,30 @@ import com.example.howdyMessagesFollowersFollowing.ExceptionClasses.BadRequestEx
 import com.example.howdyMessagesFollowersFollowing.ExceptionClasses.InternalServerException;
 import com.example.howdyMessagesFollowersFollowing.ExceptionClasses.NotFoundException;
 import org.hibernate.exception.ConstraintViolationException;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.EmptyResultDataAccessException;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.net.URISyntaxException;
 import java.util.List;
 
 @RestController
 public class UserController {
-    private final UserRepository userRepository;
+    //private final UserRepository userRepository;
+    @Autowired
+    UserService userService;
 
-    UserController(UserRepository userRepository){
+    /*UserController(UserRepository userRepository){
         this.userRepository=userRepository;
-    }
+    }*/
 
     @GetMapping("/users")
     List<User> all(){
         try {
-            return  userRepository.findAll();
+            return  userService.GetAll();
         }
         catch (Exception e){
             throw new InternalServerException();
@@ -30,16 +36,19 @@ public class UserController {
     }
 
     @PostMapping("/users")
-    User newUser(@RequestBody User newUser)  {
+    User Add( @RequestBody User newUser) throws URISyntaxException {
 
         try {
-            return  userRepository.save(newUser);
-        } catch (NotFoundException e){
-            throw e;
+            return  userService.Add(newUser);
         }
         catch (ConstraintViolationException e){
             throw new BadRequestException(e.getMessage());
+            //throw e;
         }
+        catch (NotFoundException e){
+            throw e;
+        }
+
         catch (Exception e){
             throw new BadRequestException(e.getMessage());
             //throw new InternalServerException();
@@ -48,54 +57,44 @@ public class UserController {
     }
 
     @GetMapping("/users/{id}")
-    User one(@PathVariable Long id){
-        return userRepository.findById(id)
-                .orElseThrow(() -> new NotFoundException("user",id));
+    User GetById(@PathVariable Long id){
+        try {
+            return userService.GetById(id);
+        }
+        catch (NotFoundException ex){
+            throw ex;
+        }
+        catch (Exception ex){
+            throw new InternalServerException();
+        }
+
     }
 
     @PutMapping("/users/{id}")
-    User replaceUser(@RequestBody User newUser, @PathVariable Long id){
+    User Update(@RequestBody User newUser, @PathVariable Long id){
         try {
-            return userRepository.findById(id)
-                    .map(user -> {
-                        try {
-                            user.setUsername(newUser.getUsername());
-                            return userRepository.save(user);
-                        }
-                        catch (ConstraintViolationException e){
-                            throw new BadRequestException(e.getMessage());
-                        }
-                        catch (Exception e){
-                            throw new BadRequestException(e.getMessage());
-                        }
-                    })
-                    .orElseGet(() ->{
-                        newUser.setId(id);
-                        return userRepository.save(newUser);
-                    });
-
+            return userService.Update(newUser, id);
         }
-        catch (NotFoundException e){
-            throw e;
+        catch (ConstraintViolationException ex) {
+            throw new BadRequestException(ex.getMessage());
         }
-        catch (ConstraintViolationException e){
-            throw new BadRequestException(e.getMessage());
+        catch (NotFoundException ex) {
+            throw ex;
         }
-        catch (Exception e){
-            throw e;
+        catch (Exception ex) {
+            throw new InternalServerException();
         }
     }
 
     @DeleteMapping("/users/{id}")
-    void deleteUser(@PathVariable Long id) {
+    void Delete(@PathVariable Long id) {
         try {
-            userRepository.deleteById(id);
+            userService.Delete(id);
         }
-        catch (EmptyResultDataAccessException e){
-            throw new NotFoundException("user",id);
-            //throw new UserNotFoundException(id);
+        catch (EmptyResultDataAccessException ex) {
+            throw new NotFoundException("user", id);
         }
-        catch (Exception e){
+        catch (Exception ex) {
             throw new InternalServerException();
         }
     }

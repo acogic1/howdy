@@ -7,6 +7,7 @@ import com.example.howdyMessagesFollowersFollowing.User.User;
 import com.example.howdyMessagesFollowersFollowing.User.UserRepository;
 import com.sun.xml.bind.v2.model.core.ID;
 import org.hibernate.exception.ConstraintViolationException;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.web.bind.annotation.*;
 
@@ -15,18 +16,14 @@ import java.util.Optional;
 
 @RestController
 public class SubscriptionController {
-    private final SubscriptionRepository subscriptionRepository;
-    private final UserRepository userRepository;
+    @Autowired
+    SubscriptionService subscriptionService;
 
-    SubscriptionController(SubscriptionRepository subscriptionRepository,UserRepository userRepository){
-        this.subscriptionRepository=subscriptionRepository;
-        this.userRepository=userRepository;
-    }
 
     @GetMapping("/subscriptions")
-    List<Subscription> all(){
+    List<Subscription> GetAll(){
         try {
-            return  subscriptionRepository.findAll();
+            return  subscriptionService.GetAll();
         }
         catch (Exception e){
             throw new InternalServerException();
@@ -35,71 +32,74 @@ public class SubscriptionController {
     }
 
     @PostMapping("/subscriptions")
-    Subscription newSubscription(@RequestBody Subscription newSubscription)  {
+    Subscription Add(@RequestBody Subscription newSubscription)  {
 
         try {
-            Optional<User> user_follower=userRepository.findById(newSubscription.getId_follower().getId());
-            Optional<User> user_following=userRepository.findById(newSubscription.getId_following().getId());
-            return  subscriptionRepository.save(newSubscription);
-        } catch (NotFoundException e){
-            throw e;
+            return  subscriptionService.Add(newSubscription);
         }
         catch (ConstraintViolationException e){
             throw new BadRequestException(e.getMessage());
+            //throw e;
         }
+        catch (NotFoundException e){
+            throw e;
+        }
+
         catch (Exception e){
-            throw new InternalServerException();
+            throw new BadRequestException(e.getMessage());
+            //throw new InternalServerException();
         }
 
     }
 
     @GetMapping("/subscriptions/{id}")
-    Subscription one(@PathVariable Long id){
-        return subscriptionRepository.findById(id)
-                .orElseThrow(() -> new NotFoundException("subscription",id));
+    Subscription GetById(@PathVariable Long id){
+        try {
+            return subscriptionService.GetById(id);
+        }
+        catch (NotFoundException ex){
+            throw ex;
+        }
+        catch (Exception ex){
+            throw new InternalServerException();
+        }
+    }
+
+    @GetMapping("/subscriptions/followers/{id}")
+    List<User> GetFollowersByUser(@PathVariable Long id){
+        return subscriptionService.GetFollowersByUser(id);
+    }
+
+    @GetMapping("/subscriptions/following/{id}")
+    List<User> GetFollowingByUser(@PathVariable Long id){
+        return subscriptionService.GetFollowingByUser(id);
     }
 
     @PutMapping("/subscriptions/{id}")
-    Subscription replaceSubscription(@RequestBody Subscription newSubscription, @PathVariable Long id){
+    Subscription Update(@RequestBody Subscription newSubscription, @PathVariable Long id){
         try {
-            return subscriptionRepository.findById(id)
-                    .map(subscription -> {
-                        try {
-                            subscription.setId_follower(newSubscription.getId_follower());
-                            subscription.setId_following(newSubscription.getId_following());
-                            return subscriptionRepository.save(subscription);
-                        }
-                        catch (ConstraintViolationException e){
-                            throw new BadRequestException(e.getMessage());
-                        }
-                    })
-                    .orElseGet(() ->{
-                        newSubscription.setId(id);
-                        return subscriptionRepository.save(newSubscription);
-                    });
-
+            return subscriptionService.Update(newSubscription, id);
         }
-        catch (NotFoundException e){
-            throw e;
+        catch (ConstraintViolationException ex) {
+            throw new BadRequestException(ex.getMessage());
         }
-        catch (ConstraintViolationException e){
-            throw new BadRequestException(e.getMessage());
+        catch (NotFoundException ex) {
+            throw ex;
         }
-        catch (Exception e){
-            throw e;
+        catch (Exception ex) {
+            throw new InternalServerException();
         }
     }
 
     @DeleteMapping("/subscriptions/{id}")
-    void deleteSubscription(@PathVariable Long id) {
+    void Delete(@PathVariable Long id) {
         try {
-            subscriptionRepository.deleteById(id);
+            subscriptionService.Delete(id);
         }
-        catch (EmptyResultDataAccessException e){
-            throw new NotFoundException("subscription",id);
-            //throw new UserNotFoundException(id);
+        catch (EmptyResultDataAccessException ex) {
+            throw new NotFoundException("user", id);
         }
-        catch (Exception e){
+        catch (Exception ex) {
             throw new InternalServerException();
         }
     }

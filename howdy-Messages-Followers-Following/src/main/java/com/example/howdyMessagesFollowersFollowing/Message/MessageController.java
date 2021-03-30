@@ -8,6 +8,7 @@ import com.example.howdyMessagesFollowersFollowing.Subscription.SubscriptionRepo
 import com.example.howdyMessagesFollowersFollowing.User.User;
 import com.example.howdyMessagesFollowersFollowing.User.UserRepository;
 import org.hibernate.exception.ConstraintViolationException;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.web.bind.annotation.*;
 
@@ -16,18 +17,14 @@ import java.util.Optional;
 
 @RestController
 public class MessageController {
-    private final MessageRepository messageRepository;
-    private final UserRepository userRepository;
+    @Autowired
+    MessageService messageService;
 
-    MessageController(MessageRepository messageRepository, UserRepository userRepository) {
-        this.messageRepository = messageRepository;
-        this.userRepository = userRepository;
-    }
 
     @GetMapping("/messages")
-    List<Message> all() {
+    List<Message> GetAll() {
         try {
-            return messageRepository.findAll();
+            return messageService.GetAll();
         } catch (Exception e) {
             throw new InternalServerException();
         }
@@ -35,65 +32,74 @@ public class MessageController {
     }
 
     @PostMapping("/messages")
-    Message newMessage(@RequestBody Message newMessage) {
+    Message Add(@RequestBody Message newMessage) {
 
         try {
-            Optional<User> user_sender = userRepository.findById(newMessage.getId_sender().getId());
-            Optional<User> user_reciever = userRepository.findById(newMessage.getId_reciever().getId());
-            return messageRepository.save(newMessage);
-        } catch (NotFoundException e) {
-            throw e;
-        } catch (ConstraintViolationException e) {
+            return  messageService.Add(newMessage);
+        }
+        catch (ConstraintViolationException e){
             throw new BadRequestException(e.getMessage());
-        } catch (Exception e) {
-            throw new InternalServerException();
+            //throw e;
+        }
+        catch (NotFoundException e){
+            throw e;
+        }
+
+        catch (Exception e){
+            throw new BadRequestException(e.getMessage());
+            //throw new InternalServerException();
         }
 
     }
 
     @GetMapping("/messages/{id}")
-    Message one(@PathVariable Long id) {
-        return messageRepository.findById(id)
-                .orElseThrow(() -> new NotFoundException("message", id));
+    Message GetById(@PathVariable Long id) {
+        try {
+            return messageService.GetById(id);
+        }
+        catch (NotFoundException ex){
+            throw ex;
+        }
+        catch (Exception ex){
+            throw new InternalServerException();
+        }
+    }
+
+    @GetMapping("/messages/inbox/{id}")
+    List<User> GetInboxById(@PathVariable Long id){
+        return messageService.GetInboxById(id);
+    }
+
+    @GetMapping("/messages/conversation/{user1}/{user2}")
+    List<Message> GetConversation(@PathVariable Long user1,@PathVariable Long user2){
+        return messageService.GetConversation(user1,user2);
     }
 
     @PutMapping("/messages/{id}")
-    Message replaceMessage(@RequestBody Message newMessage, @PathVariable Long id) {
+    Message Update(@RequestBody Message newMessage, @PathVariable Long id) {
         try {
-            return messageRepository.findById(id)
-                    .map(message -> {
-                        try {
-                            message.setId_sender(newMessage.getId_sender());
-                            message.setId_reciever(newMessage.getId_reciever());
-                            message.setData_time(newMessage.getData_time());
-                            message.setContent(newMessage.getContent());
-                            return messageRepository.save(message);
-                        } catch (ConstraintViolationException e) {
-                            throw new BadRequestException(e.getMessage());
-                        }
-                    })
-                    .orElseGet(() -> {
-                        newMessage.setId(id);
-                        return messageRepository.save(newMessage);
-                    });
-
-        } catch (NotFoundException e) {
-            throw e;
-        } catch (ConstraintViolationException e) {
-            throw new BadRequestException(e.getMessage());
-        } catch (Exception e) {
-            throw e;
+            return messageService.Update(newMessage, id);
+        }
+        catch (ConstraintViolationException ex) {
+            throw new BadRequestException(ex.getMessage());
+        }
+        catch (NotFoundException ex) {
+            throw ex;
+        }
+        catch (Exception ex) {
+            throw new InternalServerException();
         }
     }
 
     @DeleteMapping("/messages/{id}")
-    void deleteMessage(@PathVariable Long id) {
+    void Delete(@PathVariable Long id) {
         try {
-            messageRepository.deleteById(id);
-        } catch (EmptyResultDataAccessException e) {
-            throw new NotFoundException("message", id);
-            //throw new UserNotFoundException(id);
-        } catch (Exception e) {
+            messageService.Delete(id);
+        }
+        catch (EmptyResultDataAccessException ex) {
+            throw new NotFoundException("user", id);
+        }
+        catch (Exception ex) {
             throw new InternalServerException();
         }
     }
