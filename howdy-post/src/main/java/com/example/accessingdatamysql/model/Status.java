@@ -1,5 +1,6 @@
 package com.example.accessingdatamysql.model;
 
+import lombok.AllArgsConstructor;
 import lombok.Data;
 
 import javax.persistence.Entity;
@@ -18,4 +19,10 @@ public class Status {
 
     private String text;
 
+
+    public Status(String text, Integer userId) {
+        this.text = text;
+        this.userId = userId;
+
+    }
 }
