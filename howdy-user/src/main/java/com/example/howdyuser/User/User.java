@@ -4,10 +4,8 @@ package com.example.howdyuser.User;
 
 import org.hibernate.validator.constraints.NotBlank;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.imageio.stream.ImageInputStream;
+import javax.persistence.*;
 import javax.swing.*;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotNull;
@@ -28,7 +26,8 @@ public class User {
     private String password;
     @NotNull(message = "Variable description must not be null")
     private String description;
-    private ImageIcon picture;
+    @Lob
+    private Byte[] picture;
 
     public User(Long id,@NotNull(message = "Variable email must not be null") @Email(regexp=".*@.*\\..*", message = "Email should be valid") String email,@NotNull(message = "Variable username must not be null") String username,@NotNull(message = "Variable password must not be null") String password,@NotNull(message = "Variable description must not be null") String description) {
         this.id = id;
@@ -43,6 +42,13 @@ public class User {
         this.username = username;
         this.password = password;
         this.description = description;
+    }
+    public User(@NotNull(message = "Variable email must not be null") @Email(regexp=".*@.*\\..*", message = "Email should be valid") String email,@NotNull(message = "Variable username must not be null") String username,@NotNull(message = "Variable password must not be null") String password,@NotNull(message = "Variable description must not be null") String description,Byte[] picture) {
+        this.email = email;
+        this.username = username;
+        this.password = password;
+        this.description = description;
+        this.picture=picture;
     }
 
     public User(){
@@ -89,11 +95,11 @@ public class User {
         this.description = description;
     }
 
-    public ImageIcon getPicture() {
+    public Byte[] getPicture() {
         return picture;
     }
 
-    public void setPicture(ImageIcon picture) {
+    public void setPicture(Byte[] picture) {
         this.picture = picture;
     }
 
