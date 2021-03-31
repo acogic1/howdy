@@ -1,5 +1,7 @@
 package com.example.howdynewsfeed.models;
 
+import com.sun.istack.NotNull;
+
 import javax.persistence.*;
 
 @Entity
@@ -10,12 +12,25 @@ public class Comment {
     private Long id;
 
     @JoinColumn(name = "user_id")
+    @NotNull
     private Long userId;
 
     @JoinColumn(name = "post_id")
+    @NotNull
     private Long postId;
 
+    @Column(name = "content")
+    @NotNull
     private String content;
+
+    public Comment() {}
+
+    public Comment(Long id, Long userId, Long postId, String content) {
+        this.id=id;
+        this.userId=userId;
+        this.postId=postId;
+        this.content=content;
+    }
 
     public Long getId() {
         return id;

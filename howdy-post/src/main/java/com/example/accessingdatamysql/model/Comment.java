@@ -4,6 +4,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import java.util.Date;
 
 @Entity
 @Data
@@ -14,18 +15,23 @@ public class Comment {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
-
-    private Long userid;
-
-    private String text;
+    private Date date;
 
     @ManyToOne
+    @JoinColumn(name = "user_id", nullable = false)
+    private User user;
+
+    private String content;
+
+    @ManyToOne
+    @JoinColumn(name = "post_id", nullable = false)
     private Post post;
 
 
-    public Comment(Long userid, String text, Post post) {
-        this.userid = userid;
-        this.text = text;
+    public Comment(User user, String content, Post post) {
+        this.user = user;
+        this.content = content;
         this.post = post;
+        this.date = new Date();
     }
 }

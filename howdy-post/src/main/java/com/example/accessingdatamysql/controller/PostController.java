@@ -19,18 +19,18 @@ public class PostController {
 
 
 
-    @PostMapping(path = "/add") // Map ONLY POST Requests
-    public @ResponseBody
-    String addPost(@RequestParam String text
-            , @RequestParam Long userId) {
-        // @ResponseBody means the returned String is the response, not a view name
-        // @RequestParam means it is a parameter from the GET or POST request
-
-        Post n = new Post(text, userId);
-
-        postRepository.save(n);
-        return "Saved";
-    }
+//    @PostMapping(path = "/add") // Map ONLY POST Requests
+//    public @ResponseBody
+//    String addPost(@RequestParam String text
+//            , @RequestParam Long userId) {
+//        // @ResponseBody means the returned String is the response, not a view name
+//        // @RequestParam means it is a parameter from the GET or POST request
+//
+//        Post n = new Post(text, userId);
+//
+//        postRepository.save(n);
+//        return "Saved";
+//    }
 
     @GetMapping(path = "/all")
     public @ResponseBody

@@ -1,6 +1,6 @@
 package com.example.howdyMessagesFollowersFollowing;
 
-import com.example.howdyMessagesFollowersFollowing.Message.MesageRepository;
+import com.example.howdyMessagesFollowersFollowing.Message.MessageRepository;
 import com.example.howdyMessagesFollowersFollowing.Message.Message;
 import com.example.howdyMessagesFollowersFollowing.Subscription.Subscription;
 import com.example.howdyMessagesFollowersFollowing.Subscription.SubscriptionRepository;
@@ -31,7 +31,7 @@ public class HowdyMessagesFollowersFollowingApplication {
 	}
 
 	@Bean
-	public CommandLineRunner demo1(MesageRepository mesageRepository){
+	public CommandLineRunner demo1(MessageRepository mesageRepository){
 		return (args -> {
 			Calendar cal=Calendar.getInstance();
 			Date date=cal.getTime();
