@@ -1,25 +1,35 @@
 package com.example.howdynewsfeed.models;
 
+import com.sun.istack.NotNull;
+
 import javax.persistence.*;
 
 @Entity
 public class Reaction {
-    enum Type {Like, Unlike, Sad, FakeNews, Angry, Funny, Racism, HateSpeech, Sarcasm, Motivational};
+    public enum TypeReaction {Like, Unlike, Sad, FakeNews, Angry, Funny, Racism, HateSpeech, Sarcasm, Motivational};
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @JoinColumn(name = "user_id")
+    @NotNull
     private Long userId;
 
     @JoinColumn(name = "post_id")
+    @NotNull
     private Long postId;
-    private Enum type;
+
+    @Column(name = "type_reaction")
+    @NotNull
+    private TypeReaction typeReaction;
 
     public Reaction() {}
 
-    public Reaction(Long id, Long userId, Long postId, Enum type) {
-
+    public Reaction(Long id, Long userId, Long postId, TypeReaction type) {
+        this.id=id;
+        this.userId=userId;
+        this.postId=postId;
+        this.typeReaction=type;
     }
 
     public Long getId() {
@@ -46,11 +56,11 @@ public class Reaction {
         this.postId = postId;
     }
 
-    public Enum getType() {
-        return type;
+    public TypeReaction getTypeReaction() {
+        return typeReaction;
     }
 
-    public void setType(Enum type) {
-        this.type = type;
+    public void setTypeReaction(TypeReaction type) {
+        this.typeReaction = type;
     }
 }
