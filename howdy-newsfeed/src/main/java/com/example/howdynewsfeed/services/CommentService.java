@@ -1,5 +1,6 @@
 package com.example.howdynewsfeed.services;
 
+import com.example.howdynewsfeed.Exceptions.NotFoundException;
 import com.example.howdynewsfeed.models.Comment;
 import com.example.howdynewsfeed.models.Post;
 import com.example.howdynewsfeed.repository.CommentRepository;
@@ -31,11 +32,11 @@ public class CommentService {
         List<Comment> allComments = getComments();
         List<Comment> postsComments = new ArrayList<Comment>();
         for (Comment comment : allComments) {
-            if (comment.getPostId().equals(postId)) {
+            if ((comment.getPostId()).getId().equals(postId)) {
                 postsComments.add(comment);
             }
         }
-
+        if(postsComments.isEmpty()) throw new NotFoundException("comments on post",postId);
         return postsComments;
     }
 

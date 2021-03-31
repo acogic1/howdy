@@ -1,7 +1,6 @@
 package com.example.howdynewsfeed.models;
 
 import com.sun.istack.NotNull;
-
 import javax.persistence.*;
 
 @Entity
@@ -11,13 +10,15 @@ public class Comment {
     @Column(name = "comment_id")
     private Long id;
 
-    @JoinColumn(name = "user_id")
+    @ManyToOne(cascade = {CascadeType.ALL})
+    @JoinColumn(name = "user_id", referencedColumnName = "user_id")
     @NotNull
-    private Long userId;
+    private User userId;
 
-    @JoinColumn(name = "post_id")
+    @ManyToOne(cascade = {CascadeType.ALL})
+    @JoinColumn(name = "post_id", referencedColumnName = "post_id")
     @NotNull
-    private Long postId;
+    private Post postId;
 
     @Column(name = "content")
     @NotNull
@@ -25,8 +26,14 @@ public class Comment {
 
     public Comment() {}
 
-    public Comment(Long id, Long userId, Long postId, String content) {
+    public Comment(Long id, User userId, Post postId, String content) {
         this.id=id;
+        this.userId=userId;
+        this.postId=postId;
+        this.content=content;
+    }
+
+    public Comment(User userId, Post postId, String content) {
         this.userId=userId;
         this.postId=postId;
         this.content=content;
@@ -40,19 +47,19 @@ public class Comment {
         this.id = id;
     }
 
-    public Long getUserId() {
+    public User getUserId() {
         return userId;
     }
 
-    public void setUserId(Long userId) {
+    public void setUserId(User userId) {
         this.userId = userId;
     }
 
-    public Long getPostId() {
+    public Post getPostId() {
         return postId;
     }
 
-    public void setPostId(Long postId) {
+    public void setPostId(Post postId) {
         this.postId = postId;
     }
 

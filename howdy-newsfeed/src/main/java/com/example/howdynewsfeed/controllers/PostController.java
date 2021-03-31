@@ -44,7 +44,7 @@ public class PostController {
             return postService.getPostsById(userId);
         }
         catch (Exception e) {
-            throw new NotFoundException("Users posts are not found",userId);
+            throw new NotFoundException("posts by user",userId);
         }
     }
 }

@@ -1,5 +1,6 @@
 package com.example.howdynewsfeed.services;
 
+import com.example.howdynewsfeed.Exceptions.NotFoundException;
 import com.example.howdynewsfeed.models.Post;
 import com.example.howdynewsfeed.repository.PostRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,11 +30,11 @@ public class PostService {
         List<Post> allPosts = getPosts();
         List<Post> usersPosts = new ArrayList<Post>();
         for (Post post : allPosts) {
-            if (post.getUserId().equals(userId)) {
+            if (post.getUserId().getId().equals(userId)) {
                 usersPosts.add(post);
             }
         }
-
+        if(usersPosts.isEmpty()) throw new NotFoundException("posts by user",userId);
         return usersPosts;
     }
 
