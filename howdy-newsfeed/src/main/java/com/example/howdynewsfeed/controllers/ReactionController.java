@@ -45,7 +45,7 @@ public class ReactionController {
             return reactionService.getReactionsById(postId);
         }
         catch (Exception e) {
-            throw new NotFoundException("Users posts are not found",postId);
+            throw new NotFoundException("reactions on post",postId);
         }
     }
 }

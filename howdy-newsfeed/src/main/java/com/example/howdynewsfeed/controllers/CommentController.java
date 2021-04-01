@@ -46,7 +46,7 @@ public class CommentController {
             return commentService.getCommentsById(postId);
         }
         catch (Exception e) {
-            throw new NotFoundException("Users posts are not found",postId);
+            throw new NotFoundException("comments on post",postId);
         }
     }
 }

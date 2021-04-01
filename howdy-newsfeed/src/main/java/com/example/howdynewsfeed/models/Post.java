@@ -11,9 +11,10 @@ public class Post {
     @Column(name = "post_id")
     private Long id;
 
-    @JoinColumn(name = "user_id")
+    @ManyToOne(cascade = {CascadeType.ALL})
+    @JoinColumn(name = "user_id", referencedColumnName = "user_id")
     @NotNull
-    private Long userId;
+    private User userId;
 
     @NotNull
     @Column (name = "content")
@@ -21,8 +22,13 @@ public class Post {
 
     public Post() {}
 
-    public Post(Long id, Long userId, String content) {
+    public Post(Long id, User userId, String content) {
         this.id=id;
+        this.userId=userId;
+        this.content=content;
+    }
+
+    public Post( User userId, String content) {
         this.userId=userId;
         this.content=content;
     }
@@ -43,11 +49,11 @@ public class Post {
         this.id = id;
     }
 
-    public Long getUserId() {
+    public User getUserId() {
         return userId;
     }
 
-    public void setUserId(Long userId) {
+    public void setUserId(User userId) {
         this.userId = userId;
     }
 }

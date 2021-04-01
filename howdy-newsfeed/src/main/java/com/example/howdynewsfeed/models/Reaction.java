@@ -6,18 +6,20 @@ import javax.persistence.*;
 
 @Entity
 public class Reaction {
-    public enum TypeReaction {Like, Unlike, Sad, FakeNews, Angry, Funny, Racism, HateSpeech, Sarcasm, Motivational};
+    public enum TypeReaction {Like, Dislike, Sad, FakeNews, Angry, Funny, Racism, HateSpeech, Sarcasm, Motivational};
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @JoinColumn(name = "user_id")
+    @ManyToOne(cascade = {CascadeType.ALL})
+    @JoinColumn(name = "user_id", referencedColumnName = "user_id")
     @NotNull
-    private Long userId;
+    private User userId;
 
-    @JoinColumn(name = "post_id")
+    @ManyToOne(cascade = {CascadeType.ALL})
+    @JoinColumn(name = "post_id", referencedColumnName = "post_id")
     @NotNull
-    private Long postId;
+    private Post postId;
 
     @Column(name = "type_reaction")
     @NotNull
@@ -25,8 +27,13 @@ public class Reaction {
 
     public Reaction() {}
 
-    public Reaction(Long id, Long userId, Long postId, TypeReaction type) {
+    public Reaction(Long id, User userId, Post postId, TypeReaction type) {
         this.id=id;
+        this.userId=userId;
+        this.postId=postId;
+        this.typeReaction=type;
+    }
+    public Reaction(User userId, Post postId, TypeReaction type) {
         this.userId=userId;
         this.postId=postId;
         this.typeReaction=type;
@@ -40,19 +47,19 @@ public class Reaction {
         this.id = id;
     }
 
-    public Long getUserId() {
+    public User getUserId() {
         return userId;
     }
 
-    public void setUserId(Long userId) {
+    public void setUserId(User userId) {
         this.userId = userId;
     }
 
-    public Long getPostId() {
+    public Post getPostId() {
         return postId;
     }
 
-    public void setPostId(Long postId) {
+    public void setPostId(Post postId) {
         this.postId = postId;
     }
 
