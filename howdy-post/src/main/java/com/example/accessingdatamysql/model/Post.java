@@ -6,15 +6,13 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
-import java.util.Set;
+import java.io.Serializable;
+import java.util.*;
 
 @Entity // This tells Hibernate to make a table out of this class
 @Data
 @NoArgsConstructor
-public class Post {
+public class Post  {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
@@ -43,6 +41,32 @@ public class Post {
         this.content = content;
         this.user = user;
         this.date = new Date();
+    }
+
+    @Override
+    public String toString() {
+        return "Post{" +
+                "id=" + id +
+                ", user=" + user +
+                ", content='" + content + '\'' +
+                ", date=" + date +
+                ", comments=" + comments +
+                ", reactions=" + reactions +
+                ", tags=" + tags +
+                '}';
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Post post = (Post) o;
+        return Objects.equals(id, post.id) && Objects.equals(user, post.user) && Objects.equals(content, post.content) && Objects.equals(date, post.date) && Objects.equals(comments, post.comments) && Objects.equals(reactions, post.reactions) && Objects.equals(tags, post.tags);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, user, content, date, comments, reactions, tags);
     }
 
 }

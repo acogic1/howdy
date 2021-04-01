@@ -1,45 +1,48 @@
 package com.example.accessingdatamysql.controller;
 
 import com.example.accessingdatamysql.model.Comment;
+import com.example.accessingdatamysql.model.CommentRequest;
+import com.example.accessingdatamysql.model.Post;
+import com.example.accessingdatamysql.model.PostRequest;
 import com.example.accessingdatamysql.repository.CommentRepository;
 import com.example.accessingdatamysql.repository.PostRepository;
+import com.example.accessingdatamysql.service.CommentService;
+import com.example.accessingdatamysql.service.PostService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
-@Controller
-@RequestMapping(path = "/comment")
+import java.util.List;
+import java.util.Optional;
+
+@RestController
+@RequestMapping("/comment")
 public class CommentController {
-    //TODO: NE BI SE TREBAO USER ID UNOSITI NEGO GLEDATI KO JE PRIJAVLJEN
+    private final CommentService commentService;
 
-    private final CommentRepository commentRepository;
-
-    private final PostRepository postRepository;
-
-    public CommentController(CommentRepository commentRepository, PostRepository postRepository) {
-        this.commentRepository = commentRepository;
-        this.postRepository = postRepository;
+    @Autowired
+    public CommentController(CommentService commentService) {
+        this.commentService = commentService;
     }
 
-//    @PutMapping(path = "/add/{id}") // Map ONLY POST Requests
-//    public @ResponseBody
-//    String addComment(@RequestParam String text, @RequestParam long postId, @PathVariable Long id) {
-//        commentRepository.findById(id).map(comment1 -> {
-//            comment1.setText(text);
-//            return commentRepository.save(comment1);
-//        }).orElseGet(() -> {
-//            Comment c = new Comment();
-//
-//            postRepository.findById(postId).map(post1 -> {
-//                c.setUserid(post1.getUserId());
-//                c.setText(text);
-//                c.setPost(post1);
-//
-//                return commentRepository.save(c);
-//
-//            });
-//            return commentRepository.save(c);
-//
-//        });
-//        return "saved";
+    @GetMapping("/all")
+    List<Comment> getAllComments() {
+        return commentService.getAllComments();
+    }
+
+    @GetMapping("/{id}")
+    Optional<Comment> getComment(@PathVariable Long id) {
+        return commentService.getComment(id);
+    }
+
+//    @DeleteMapping("/{id}")
+//    void deletePost(@PathVariable Long id){
+//        postService.deletePost(id);
 //    }
+
+    @PostMapping("/add/{userid}/{postid}")
+    Comment addPost(@RequestBody CommentRequest commentRequest, @PathVariable Long userid, @PathVariable Long postid) {
+        return commentService.addComment(userid, postid, commentRequest.getContent());
+    }
+
 }
