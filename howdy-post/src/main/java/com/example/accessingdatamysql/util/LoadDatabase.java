@@ -2,6 +2,7 @@ package com.example.accessingdatamysql.util;
 
 import com.example.accessingdatamysql.model.Comment;
 import com.example.accessingdatamysql.model.Post;
+import com.example.accessingdatamysql.model.Reaction;
 import com.example.accessingdatamysql.model.User;
 import com.example.accessingdatamysql.repository.CommentRepository;
 import com.example.accessingdatamysql.repository.PostRepository;
@@ -31,7 +32,9 @@ public class LoadDatabase {
             commentRepository.save(new Comment(vedad, "Samo napirejd! Kako su djeca?", dzejlanovPost));
             commentRepository.save(new Comment(dzejlan, "OOOOOO, gdje si to kupio?", vedadovPost));
             commentRepository.save(new Comment(adem, "Dobro došao u klub!!", vedadovPost));
-            // reactionRepository.save(new Reaction(vedad, ademovPost, Reaction.ReactionType.HAHA))
+            reactionRepository.save(new Reaction(vedad, ademovPost, Reaction.ReactionType.HAHA));
+            reactionRepository.save(new Reaction(vedad, ademovPost, Reaction.ReactionType.HAHA));
+            reactionRepository.save(new Reaction(vedad, ademovPost, Reaction.ReactionType.HAHA));
 
         };
     }

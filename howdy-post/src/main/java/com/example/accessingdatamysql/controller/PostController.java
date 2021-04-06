@@ -29,10 +29,10 @@ public class PostController {
         return postService.getPost(id);
     }
 
-//    @DeleteMapping("/{id}")
-//    void deletePost(@PathVariable Long id){
-//        postService.deletePost(id);
-//    }
+    @DeleteMapping("/{id}")
+    void deletePost(@PathVariable Long id){
+        postService.deletePost(id);
+    }
 
     @PostMapping("/add/{id}")
     Post addPost(@RequestBody PostRequest postRequest, @PathVariable Long id) {

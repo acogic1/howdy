@@ -32,11 +32,13 @@ public class PostService {
     public Optional<Post> getPost(Long postId){
         return postRepository.findById(postId);
     }
-//    public void deletePost(Long postId){
-//
-//        postRepository.deleteById(postId);
-//
-//    }
+
+
+    public void deletePost(Long postId){
+
+        postRepository.deleteById(postId);
+
+    }
 
     public Post addPost(Long userId, String content) {
         User user = userRepository.getOne(userId);

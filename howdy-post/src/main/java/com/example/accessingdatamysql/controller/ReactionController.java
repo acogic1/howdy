@@ -22,17 +22,17 @@ public class ReactionController {
     }
 
     @GetMapping("/all")
-    List<Reaction> getAllComments() {
+    List<Reaction> getAllReactions() {
         return reactionService.getAllReactions();
     }
 
-    //    @DeleteMapping("/{id}")
-//    void deletePost(@PathVariable Long id){
-//        postService.deletePost(id);
-//    }
+        @DeleteMapping("/{id}")
+    void deletePost(@PathVariable Long id){
+        reactionService.deleteReaction(id);
+    }
 
     @PostMapping("/add/{userid}/{postid}")
-    Reaction addPost(@RequestBody CommentRequest commentRequest, @PathVariable Long userid, @PathVariable Long postid) {
-        return reactionService.addComment(userid, postid, commentRequest.getContent());
+    Reaction addReaction(@RequestBody CommentRequest commentRequest, @PathVariable Long userid, @PathVariable Long postid) {
+        return reactionService.addReaction(userid, postid, commentRequest.getContent());
     }
 }

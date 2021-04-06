@@ -38,12 +38,13 @@ public class ReactionService {
 //        postRepository.deleteById(postId);
 //
 //    }
-
-    public Reaction addComment(Long userId, Long postid, String content) {
+    public void deleteReaction(Long reactionId) {
+        reactionRepository.deleteById(reactionId);
+    }
+    public Reaction addReaction(Long userId, Long postid, String content) {
+        //TODO: PROVJERIT ŠTA AKO NEMA KOMENTARA I USERA
         User user = userRepository.getOne(userId);
         Post post = postRepository.getOne(postid);
-
         return reactionRepository.save(new Reaction(user, post, Reaction.ReactionType.HAHA));
-
     }
 }
