@@ -17,7 +17,6 @@ public class Post  {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
-
     @ManyToOne
     @JoinColumn(name = "user_id", nullable = false)
     private User user;
@@ -34,6 +33,7 @@ public class Post  {
     @OneToMany(mappedBy = "post")
     private Set<Reaction> reactions;
 
+    @JsonIgnore
     @ManyToMany
     Set<Tag> tags;
 

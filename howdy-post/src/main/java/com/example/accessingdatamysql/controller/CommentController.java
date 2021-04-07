@@ -30,15 +30,20 @@ public class CommentController {
         return commentService.getAllComments();
     }
 
+    @GetMapping("/all/{id}")
+    List<Comment> getAllCommentsPost(@PathVariable Long id) {
+        return commentService.getCommentPost(id);
+    }
+
     @GetMapping("/{id}")
     Optional<Comment> getComment(@PathVariable Long id) {
         return commentService.getComment(id);
     }
 
-//    @DeleteMapping("/{id}")
-//    void deletePost(@PathVariable Long id){
-//        postService.deletePost(id);
-//    }
+    @DeleteMapping("/{id}")
+    void deleteComment(@PathVariable Long id){
+        commentService.deleteComment(id);
+    }
 
     @PostMapping("/add/{userid}/{postid}")
     Comment addPost(@RequestBody CommentRequest commentRequest, @PathVariable Long userid, @PathVariable Long postid) {

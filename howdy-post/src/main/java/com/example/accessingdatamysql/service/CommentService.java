@@ -30,14 +30,17 @@ public class CommentService {
         return commentRepository.findAll();
     }
 
-    public Optional<Comment> getComment(Long commentId){
+    public Optional<Comment> getComment(Long commentId) {
         return commentRepository.findById(commentId);
     }
-//    public void deletePost(Long postId){
-//
-//        postRepository.deleteById(postId);
-//
-//    }
+
+    public List<Comment> getCommentPost(Long postId) {
+        return commentRepository.findByPostId(postId);
+    }
+
+    public void deleteComment(Long commentId) {
+        commentRepository.deleteById(commentId);
+    }
 
     public Comment addComment(Long userId, Long postid, String content) {
         User user = userRepository.getOne(userId);
