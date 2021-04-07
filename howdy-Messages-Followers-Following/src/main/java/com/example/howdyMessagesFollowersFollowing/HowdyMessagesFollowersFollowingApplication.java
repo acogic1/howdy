@@ -32,7 +32,7 @@ public class HowdyMessagesFollowersFollowingApplication {
 		});
 	}
 
-	@Bean
+	/*@Bean
 	public CommandLineRunner demo1(MessageRepository mesageRepository){
 		return (args -> {
 			Calendar cal=Calendar.getInstance();
@@ -61,5 +61,5 @@ public class HowdyMessagesFollowersFollowingApplication {
 			subscriptionRepository.save(new Subscription(user2,user1));
 
 		});
-	}
+	}*/
 }
