@@ -9,12 +9,14 @@ import com.example.howdyMessagesFollowersFollowing.User.UserRepository;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.cloud.netflix.eureka.EnableEurekaClient;
 import org.springframework.context.annotation.Bean;
 
 import java.util.Calendar;
 import java.util.Date;
 
 @SpringBootApplication
+@EnableEurekaClient
 public class HowdyMessagesFollowersFollowingApplication {
 
 	public static void main(String[] args) {
@@ -30,7 +32,7 @@ public class HowdyMessagesFollowersFollowingApplication {
 		});
 	}
 
-	@Bean
+	/*@Bean
 	public CommandLineRunner demo1(MessageRepository mesageRepository){
 		return (args -> {
 			Calendar cal=Calendar.getInstance();
@@ -59,5 +61,5 @@ public class HowdyMessagesFollowersFollowingApplication {
 			subscriptionRepository.save(new Subscription(user2,user1));
 
 		});
-	}
+	}*/
 }
