@@ -13,7 +13,8 @@ public class User {
 
     @NotNull(message = "Variable username must not be null")
     private String username;
-    private ImageIcon picture;
+    @Lob
+    private Byte[] picture;
 
     public User(Long id,@NotNull(message = "Variable username must not be null") String username) {
         this.id = id;
@@ -43,11 +44,11 @@ public class User {
         this.username = username;
     }
 
-    public ImageIcon getPicture() {
+    public Byte[] getPicture() {
         return picture;
     }
 
-    public void setPicture(ImageIcon picture) {
+    public void setPicture(Byte[] picture) {
         this.picture = picture;
     }
 }

@@ -9,10 +9,15 @@ import com.sun.xml.bind.v2.model.core.ID;
 import org.hibernate.exception.ConstraintViolationException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.EmptyResultDataAccessException;
+import org.springframework.http.HttpEntity;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
+import org.springframework.web.client.RestTemplate;
 
 import javax.persistence.Tuple;
 import java.math.BigInteger;
+import java.net.URI;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -24,6 +29,9 @@ public class MessageService {
     private MessageRepository messageRepository;
     @Autowired
     private UserRepository userRepository;
+
+    @Autowired
+    RestTemplate restTemplate;
 
     public List<Message> GetAll(){
         List<Message> messages=messageRepository.findAll();
@@ -102,6 +110,20 @@ public class MessageService {
         try {
             Optional<User> user_sender = userRepository.findById(newMessage.getId_sender().getId());
             Optional<User> user_reciever = userRepository.findById(newMessage.getId_reciever().getId());
+            final String URLSender = "http://user-service/users/"+newMessage.getId_sender().getId();
+            final String URLReciever = "http://user-service/users/"+newMessage.getId_sender().getId();
+            URI uriSender = new URI(URLSender);
+            URI uriReciever = new URI(URLReciever);
+            /*HttpHeaders headers = new HttpHeaders();
+            headers.add("Content-Type", "application/json");
+            HttpEntity<User> request = new HttpEntity<>(headers);*/
+
+            ResponseEntity<User> resultSender = restTemplate.getForEntity(uriSender, User.class);
+            ResponseEntity<User> resultReciever = restTemplate.getForEntity(uriReciever, User.class);
+            System.out.println(resultSender.getBody().getUsername());
+            System.out.println(resultReciever.getBody().getUsername());
+
+
             return messageRepository.save(newMessage);
         } catch (NotFoundException e) {
             throw e;
