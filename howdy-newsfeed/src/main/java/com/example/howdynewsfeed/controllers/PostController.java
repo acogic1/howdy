@@ -2,7 +2,9 @@ package com.example.howdynewsfeed.controllers;
 
 import com.example.howdynewsfeed.Exceptions.InternalServerException;
 import com.example.howdynewsfeed.Exceptions.NotFoundException;
+import com.example.howdynewsfeed.models.Comment;
 import com.example.howdynewsfeed.models.Post;
+import com.example.howdynewsfeed.models.Reaction;
 import com.example.howdynewsfeed.models.User;
 import com.example.howdynewsfeed.services.PostService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -41,12 +43,33 @@ public class PostController {
     }
 
     @GetMapping("postFollowing/{userId}")
-    List<User> getFollowingFromUser (@PathVariable("userId") Long id) {
-        ResponseEntity<User[]> responseEntity = restTemplate.getForEntity("localhost:8082/subscriptions/following/" + id, User[].class);
+    public List<User> getFollowingFromUser (@PathVariable("userId") Long id) {
 
-        List<User> users = Arrays.asList(responseEntity.getBody());
+            ResponseEntity<User[]> responseEntity = restTemplate.getForEntity("http://messages-followers-following-service/subscriptions/following/" + id, User[].class);
+            User[] users = responseEntity.getBody();
 
-        return users;
+            if(users.length == 0) throw new NotFoundException("following for user", id);
+            return Arrays.asList(users);
+    }
+
+    @GetMapping("postComments/{postId}")
+    public List<Comment> getCommentsForPost (@PathVariable("postId") Long id) {
+
+        ResponseEntity<Comment[]> responseEntity = restTemplate.getForEntity("http://user-service/comment/all/" + id, Comment[].class);
+        Comment[] comments = responseEntity.getBody();
+
+        if(comments.length == 0) throw new NotFoundException("comments for post", id);
+        return Arrays.asList(comments);
+    }
+
+    @GetMapping("postReactions/{postId}")
+    public List<Reaction> getReactionsForPost (@PathVariable("postId") Long id) {
+
+        ResponseEntity<Reaction[]> responseEntity = restTemplate.getForEntity("http://user-service/reaction/all/" + id, Reaction[].class);
+        Reaction[] reactions = responseEntity.getBody();
+
+        if(reactions.length == 0) throw new NotFoundException("reactions for post", id);
+        return Arrays.asList(reactions);
     }
 
     @GetMapping("post/{id}")

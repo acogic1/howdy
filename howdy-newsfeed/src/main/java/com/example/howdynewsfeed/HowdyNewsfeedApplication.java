@@ -10,6 +10,7 @@ import com.example.howdynewsfeed.repository.ReactionRepository;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.cloud.client.loadbalancer.LoadBalanced;
 import org.springframework.cloud.netflix.eureka.EnableEurekaClient;
 import org.springframework.context.annotation.Bean;
 import com.example.howdynewsfeed.repository.UserRepository;
@@ -21,7 +22,8 @@ import org.springframework.web.client.RestTemplate;
 public class HowdyNewsfeedApplication {
 
     @Bean
-    public RestTemplate getRestTemplate() {
+    @LoadBalanced
+    public RestTemplate restTemplate() {
         return new RestTemplate();
     }
 
