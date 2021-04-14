@@ -8,6 +8,7 @@ import com.example.accessingdatamysql.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -33,12 +34,21 @@ public class PostService {
         return postRepository.findPostByUser_Id(userId);
     }
 
-    public Optional<Post> getPost(Long postId){
+    public List<Post> getAllPostsFromUsers(List<Long> users) {
+        List<Post> posts = new ArrayList<Post>();
+        for (Long u : users) {
+            posts.addAll(postRepository.findPostByUser_Id(u));
+        }
+        return posts;
+    }
+
+
+    public Optional<Post> getPost(Long postId) {
         return postRepository.findById(postId);
     }
 
 
-    public void deletePost(Long postId){
+    public void deletePost(Long postId) {
 
         postRepository.deleteById(postId);
 
