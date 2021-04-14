@@ -30,14 +30,18 @@ public class ReactionService {
         return reactionRepository.findAll();
     }
 
-//    public Optional<Post> getPost(Long postId){
-//        return postRepository.findById(postId);
-//    }
-//    public void deletePost(Long postId){
-//
-//        postRepository.deleteById(postId);
-//
-//    }
+    public List<Reaction> getReactionHahaPost(Long postId) {
+        return reactionRepository.findByPostIdAndReactionType_Haha(postId);
+    }
+    public List<Reaction> getReactionLikePost(Long postId) {
+        return reactionRepository.findByPostIdAndReactionType_Like(postId);
+    }
+    public List<Reaction> getReactionDislikePost(Long postId) {
+        return reactionRepository.findByPostIdAnAndReactionType_Dislike(postId);
+    }
+    public List<Reaction> getReactionSadPost(Long postId) {
+        return reactionRepository.findByPostIdAndReactionType_Sad(postId);
+    }
     public void deleteReaction(Long reactionId) {
         reactionRepository.deleteById(reactionId);
     }

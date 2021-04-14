@@ -12,11 +12,12 @@ import java.util.*;
 @Entity // This tells Hibernate to make a table out of this class
 @Data
 @NoArgsConstructor
-public class Post  {
+public class Post {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
+    @JsonIgnore
     @ManyToOne
     @JoinColumn(name = "user_id", nullable = false)
     private User user;
