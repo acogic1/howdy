@@ -27,26 +27,20 @@ public class ReactionController {
     }
 
     @GetMapping("/all/{id}")
-    List<Reaction> getAllReactionsHahaPost(@PathVariable Long id) {
-        return reactionService.getReactionHahaPost(id);
+    List<Reaction> getAllReactionsPost(@PathVariable Long id, int r) {
+        if (r == 0) {
+            return reactionService.getAllReactionsPost(id, Reaction.ReactionType.HAHA);
+        }
+        if (r == 1) {
+            return reactionService.getAllReactionsPost(id, Reaction.ReactionType.DISLIKE);
+        }
+        if (r == 2) {
+            return reactionService.getAllReactionsPost(id, Reaction.ReactionType.SAD);
+        } else {
+            return reactionService.getAllReactionsPost(id, Reaction.ReactionType.LIKE);
+        }
+
     }
-    @GetMapping("/all/{id}")
-    List<Reaction> getAllReactionsLikePost(@PathVariable Long id) {
-        return reactionService.getReactionLikePost(id);
-    }
-
-    @GetMapping("/all/{id}")
-    List<Reaction> getAllReactionsDislikePost(@PathVariable Long id) {
-        return reactionService.getReactionDislikePost(id);
-    }
-
-
-    @GetMapping("/all/{id}")
-    List<Reaction> getAllReactionsSadPost(@PathVariable Long id) {
-        return reactionService.getReactionSadPost(id);
-    }
-
-
 
 
     @DeleteMapping("/{id}")

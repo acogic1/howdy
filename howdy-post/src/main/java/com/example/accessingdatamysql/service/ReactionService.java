@@ -30,21 +30,15 @@ public class ReactionService {
         return reactionRepository.findAll();
     }
 
-    public List<Reaction> getReactionHahaPost(Long postId) {
-        return reactionRepository.findByPostIdAndReactionType_Haha(postId);
+    public List<Reaction> getAllReactionsPost(Long postId, Reaction.ReactionType reactionType) {
+        return reactionRepository.findByPostIdAndReactionType(postId, reactionType);
     }
-    public List<Reaction> getReactionLikePost(Long postId) {
-        return reactionRepository.findByPostIdAndReactionType_Like(postId);
-    }
-    public List<Reaction> getReactionDislikePost(Long postId) {
-        return reactionRepository.findByPostIdAnAndReactionType_Dislike(postId);
-    }
-    public List<Reaction> getReactionSadPost(Long postId) {
-        return reactionRepository.findByPostIdAndReactionType_Sad(postId);
-    }
+
+
     public void deleteReaction(Long reactionId) {
         reactionRepository.deleteById(reactionId);
     }
+
     public Reaction addReaction(Long userId, Long postid, String content) {
         //TODO: PROVJERIT ŠTA AKO NEMA KOMENTARA I USERA
         User user = userRepository.getOne(userId);
