@@ -29,6 +29,10 @@ public class PostService {
         return postRepository.findAll();
     }
 
+    public List<Post> getAllPostsFromUser(Long userId) {
+        return postRepository.findPostByUser_Id(userId);
+    }
+
     public Optional<Post> getPost(Long postId){
         return postRepository.findById(postId);
     }

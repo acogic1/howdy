@@ -24,15 +24,19 @@ public class PostController {
         return postService.getAllPosts();
     }
 
+    @GetMapping("/all/{userId}")
+    List<Post> getAllPostsFromUser(@PathVariable Long userId) {
+        return postService.getAllPostsFromUser(userId);
+    }
+
     @GetMapping("/{id}")
     Optional<Post> getPost(@PathVariable Long id) {
         return postService.getPost(id);
     }
 
 
-
     @DeleteMapping("/{id}")
-    void deletePost(@PathVariable Long id){
+    void deletePost(@PathVariable Long id) {
         postService.deletePost(id);
     }
 
