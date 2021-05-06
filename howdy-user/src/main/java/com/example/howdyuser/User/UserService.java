@@ -11,6 +11,7 @@ import org.springframework.web.multipart.MultipartFile;
 import javax.validation.ConstraintViolationException;
 import java.io.IOException;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class UserService {
@@ -19,7 +20,9 @@ public class UserService {
 
     public List<User> GetAll(){
         try {
-            return  userRepository.findAll();
+            List<User> users =userRepository.findAll();
+            return  userRepository.findAll().stream()
+                    .collect(Collectors.toList());
         }
         catch (Exception e){
             throw new InternalServerException();
