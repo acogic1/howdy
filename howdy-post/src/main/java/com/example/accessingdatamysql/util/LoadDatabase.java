@@ -33,8 +33,9 @@ public class LoadDatabase {
             commentRepository.save(new Comment(dzejlan, "OOOOOO, gdje si to kupio?", vedadovPost));
             commentRepository.save(new Comment(adem, "Dobro došao u klub!!", vedadovPost));
             reactionRepository.save(new Reaction(vedad, ademovPost, Reaction.ReactionType.HAHA));
-            reactionRepository.save(new Reaction(vedad, ademovPost, Reaction.ReactionType.HAHA));
-            reactionRepository.save(new Reaction(vedad, ademovPost, Reaction.ReactionType.HAHA));
+            reactionRepository.save(new Reaction(vedad, ademovPost, Reaction.ReactionType.LIKE));
+            reactionRepository.save(new Reaction(vedad, ademovPost, Reaction.ReactionType.DISLIKE));
+            reactionRepository.save(new Reaction(vedad, ademovPost, Reaction.ReactionType.SAD));
 
         };
     }

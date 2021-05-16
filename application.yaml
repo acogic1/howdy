@@ -1,0 +1,75 @@
+version: '3'
+networks:
+  howdy:
+    driver: bridge
+
+services:
+  discovery:
+    image: eureka
+    build:
+      context: ./Eureka
+    ports:
+      - 8761:8761
+    networks:
+      - howdy
+
+  user-service:
+    image: user-service
+    build:
+      context: ./howdy-user
+    ports:
+      - 8080:8080
+    depends_on:
+      - discovery
+    environment:
+      - JAVA_OPTS=
+        -DEUREKA_SERVER=http://discovery:8761/eureka
+    networks:
+      - howdy
+
+  messages-followers-following-service:
+    image: messages-followers-following-service
+    build:
+      context: ./howdy-Messages-Followers-Following
+    ports:
+      - 8082:8082
+    depends_on:
+      - discovery
+      - user-service
+    environment:
+      - JAVA_OPTS=
+        -DEUREKA_SERVER=http://discovery:8761/eureka
+    networks:
+      - howdy
+
+  post-service:
+    image: post-service
+    build:
+      context: ./howdy-post
+    ports:
+      - 8084:8084
+    depends_on:
+      - discovery
+      - user-service
+    environment:
+      - JAVA_OPTS
+      - EUREKA_SERVER=http://discovery:8761/eureka
+    networks:
+      - howdy
+      
+  newsfeed-service:
+    image: newsfeed-service
+    build:
+      context: ./howdy-newsfeed
+    ports:
+      - 8083:8083
+    depends_on:
+      - discovery
+      - user-service
+      - post-service
+    environment:
+      - JAVA_OPTS
+      - EUREKA_SERVER=http://discovery:8761/eureka
+    networks:
+      - howdy
+

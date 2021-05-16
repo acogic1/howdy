@@ -26,8 +26,25 @@ public class ReactionController {
         return reactionService.getAllReactions();
     }
 
-        @DeleteMapping("/{id}")
-    void deletePost(@PathVariable Long id){
+    @GetMapping("/all/{id}")
+    List<Reaction> getAllReactionsPost(@PathVariable Long id, int r) {
+        if (r == 0) {
+            return reactionService.getAllReactionsPost(id, Reaction.ReactionType.HAHA);
+        }
+        if (r == 1) {
+            return reactionService.getAllReactionsPost(id, Reaction.ReactionType.DISLIKE);
+        }
+        if (r == 2) {
+            return reactionService.getAllReactionsPost(id, Reaction.ReactionType.SAD);
+        } else {
+            return reactionService.getAllReactionsPost(id, Reaction.ReactionType.LIKE);
+        }
+
+    }
+
+
+    @DeleteMapping("/{id}")
+    void deletePost(@PathVariable Long id) {
         reactionService.deleteReaction(id);
     }
 
