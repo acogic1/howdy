@@ -30,17 +30,15 @@ public class ReactionService {
         return reactionRepository.findAll();
     }
 
-//    public Optional<Post> getPost(Long postId){
-//        return postRepository.findById(postId);
-//    }
-//    public void deletePost(Long postId){
-//
-//        postRepository.deleteById(postId);
-//
-//    }
+    public List<Reaction> getAllReactionsPost(Long postId, Reaction.ReactionType reactionType) {
+        return reactionRepository.findByPostIdAndReactionType(postId, reactionType);
+    }
+
+
     public void deleteReaction(Long reactionId) {
         reactionRepository.deleteById(reactionId);
     }
+
     public Reaction addReaction(Long userId, Long postid, String content) {
         //TODO: PROVJERIT ŠTA AKO NEMA KOMENTARA I USERA
         User user = userRepository.getOne(userId);

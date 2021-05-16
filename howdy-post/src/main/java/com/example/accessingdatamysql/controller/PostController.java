@@ -2,6 +2,7 @@ package com.example.accessingdatamysql.controller;
 
 import com.example.accessingdatamysql.model.Post;
 import com.example.accessingdatamysql.model.PostRequest;
+import com.example.accessingdatamysql.model.UsersId;
 import com.example.accessingdatamysql.service.PostService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -19,9 +20,15 @@ public class PostController {
         this.postService = postService;
     }
 
+
     @GetMapping("/all")
-    List<Post> getAllPosts() {
-        return postService.getAllPosts();
+    List<Post> getAllPostsFromUsers(@RequestBody UsersId usersId) {
+        return postService.getAllPostsFromUsers(usersId.getUsersId());
+    }
+
+    @GetMapping("/all/{userId}")
+    List<Post> getAllPostsFromUser(@PathVariable Long userId) {
+        return postService.getAllPostsFromUser(userId);
     }
 
     @GetMapping("/{id}")
@@ -29,8 +36,9 @@ public class PostController {
         return postService.getPost(id);
     }
 
+
     @DeleteMapping("/{id}")
-    void deletePost(@PathVariable Long id){
+    void deletePost(@PathVariable Long id) {
         postService.deletePost(id);
     }
 
