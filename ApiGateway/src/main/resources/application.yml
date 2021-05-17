@@ -27,3 +27,8 @@ zuul:
       path: /user-service/**
       serviceId: user-service
       stripPrefix: true
+    newsfeed-service:
+      sensitiveHeaders:
+      path: /newsfeed-service/**
+      serviceId: newsfeed-service
+      stripPrefix: true
