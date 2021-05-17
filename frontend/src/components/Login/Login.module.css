@@ -1,0 +1,76 @@
+/* @font-face {
+    font-family: 'KoHo';
+    
+    src: url('./../../fonts/KoHo-Regular.ttf');
+  }
+  @font-face {
+    font-family: 'KoHo Bold';
+    
+    src: url('./../../fonts/KoHo-Bold.ttf');
+  } */
+
+  .container {
+      display: flex;
+      flex-direction: row;
+  }
+  .logo {
+    display: block;
+    max-width: fit-content;
+    position: absolute;
+    left: 10%;
+    animation: App-logo-spin infinite 20s linear;
+}
+  .form {
+    font-family: Arial, Helvetica, sans-serif;
+    padding: 20px 10px;
+    border-radius: 10%;
+    max-width: fit-content;
+    margin: auto;
+    position: absolute;
+    top: 50%;
+    left: 70%;
+    transform: translate(-50%, -50%);
+    vertical-align: middle;
+    display: flex;
+    flex-direction: column;
+    background: linear-gradient(#e66465, #9198e5);
+}
+input {
+    float: right;
+    border: 1px solid black;
+    margin-left: 15px;
+}
+.title {
+    margin: 0 auto 20px auto;
+}
+label {
+    margin-bottom: 15px;
+}
+.forget {
+    font-size: 11px;
+    margin: 0 auto;
+}
+.btn {
+    font-family: Arial, Helvetica, sans-serif;
+    margin-top: 20px;
+    margin-bottom: 10px;
+    width: 80px;
+    height: 25px;
+    border: none;
+    align-self: center;
+    border-radius: 10px;
+}
+.btn:hover {
+    box-shadow: 4px 4px grey;
+}
+@keyframes App-logo-spin {
+    0% {
+      transform: rotate(-30deg);
+    }
+    50% {
+      transform: rotate(30deg);
+    }
+    100% {
+        transform: rotate(-30deg);
+    }
+  }
