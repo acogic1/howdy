@@ -2,20 +2,77 @@ import React, {Component} from 'react';
 import classes from '../Login/Login.module.css';
 import { Link } from 'react-router-dom';
 import logo from '../../images/logo.png'
+import axios from 'axios'
 
-class Login extends Component {
-    render() {
+class Login extends React.Component {
+  constructor() {
+    super()
+    this.state = {
+        username: "",
+        password: "",
+        errorMessage: ""
+    }
+
+    this.handleChange = this.handleChange.bind(this)
+    this.handleSubmit = this.handleSubmit.bind(this)
+}
+
+handleChange(event) {
+    this.setState({
+        [event.target.name]: event.target.value
+    })
+}
+
+handleSubmit(event) {
+
+    window.alert("jesam");
+    axios.post('http://localhost:8090/user-service/authenticate', {
+        username: this.state.username,
+        password: this.state.password
+    })
+        .then((response) => {
+            window.alert("idem dalje");
+            this.setState({ errorMessage: "" })
+            localStorage.token = response.data.token
+            localStorage.username = JSON.parse(atob(localStorage.token.split('.')[1])).sub
+
+            var url = "http://localhost:8090/user-service/validate-token"
+            axios.post(url, {
+                token: localStorage.token,
+                username: localStorage.username
+            })
+                .then((response) => {
+                    this.props.history.push('/registration')
+                    /*if (response.data.role == "STUFF") {
+                        this.props.history.push('/stuff')
+                    }
+                    else if (response.data.role == "ADMIN") {
+                        this.props.history.push('/adminpage')
+                    }
+                    else if (response.data.role == "MEMBER") {
+                        this.props.history.push('/member')
+                    }*/
+                })
+
+        }, (error) => {
+            this.setState({ errorMessage: "Pogrešni podaci" })
+        });
+
+    event.preventDefault()
+}  
+  
+  render() {
       return (
           <div className={classes.container}>
             <div>
                 <img className={classes.logo} src={logo}></img>
             </div>
             <div>
-                <form className={classes.form}>
+                <form className={classes.form} onSubmit={this.handleSubmit}>
                     <span className={classes.title}>Log In</span>
-                    <label>Username: <input></input></label>
-                    <label>Password: <input type="password"></input></label>
-                    <button className={classes.btn}>Log in</button>
+                    <label>Username: <input name="username" onChange={this.handleChange}></input></label>
+                    <label>Password: <input name="password" type="password" onChange={this.handleChange}></input></label>
+                    <button className={classes.btn} type="submit">Log in</button>
                     <Link to="/registration" className={classes.forget}>Forget password?</Link>
                 </form>
               </div>

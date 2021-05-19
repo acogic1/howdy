@@ -41,6 +41,8 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .permitAll()
                 .antMatchers("/validate-token")
                 .permitAll()
+                .antMatchers("/register")
+                .permitAll()
                 .antMatchers("/users")
                 .hasAnyAuthority()
                 .antMatchers("/**")
