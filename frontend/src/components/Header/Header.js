@@ -11,7 +11,7 @@ class Header extends Component {
       return (
           <div className={classes.container}>
               <div className={classes.main_div}>
-                <img className={classes.logo} src={logo}/>
+                <img className={classes.logo_header} src={logo}/>
                 <input className={classes.search} placeholder={"Search"}></input>
                 <div className={classes.meni}>
                     <Link to="/newsfeed">NewsFeed</Link>

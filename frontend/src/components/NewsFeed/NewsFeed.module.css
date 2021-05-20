@@ -10,7 +10,7 @@
     margin: 10px 40px;
 }
 .newPost {
-    background-color: #e66465;
+    background: linear-gradient(#e66465, #9198e5);
     padding: 5px 10px;
     margin: 10px 90px;
     border: 1px solid black;
