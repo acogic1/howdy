@@ -1,0 +1,46 @@
+.container {
+    background-color: #dbdbdb;
+    padding: 20px 200px;
+}
+.posts {
+    display: flex;
+    flex-direction: column;
+}
+.posts>:nth-child(n) {
+    margin: 10px 40px;
+}
+.newPost {
+    background: linear-gradient(#e66465, #9198e5);
+    padding: 5px 10px;
+    margin: 10px 90px;
+    border: 1px solid black;
+    border-radius: 8px;
+    display: flex;
+    flex-direction: column;
+}
+.top {
+    display: flex;
+    padding-top: 15px;
+    flex-direction: row;
+    align-items: flex-start;
+}
+.img_post {
+    width: 40px;
+    border-radius: 50%;
+}
+.btn_post {
+    float: right;
+    width: 80px;
+    margin-right: 10px;
+    height: 30px;
+    font-weight: 600;
+}
+.post_input {
+    margin:0 10px 10px 10px;
+    width: 680px;
+    height: 90px;
+    border-radius: 20px;
+}
+.post_input::placeholder {
+    padding: 15px;
+}

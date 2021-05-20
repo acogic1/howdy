@@ -5,9 +5,9 @@ import com.example.howdynewsfeed.models.Post;
 import com.example.howdynewsfeed.repository.PostRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import sun.rmi.runtime.Log;
 
-import java.io.Console;
+//import sun.rmi.runtime.Log;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
