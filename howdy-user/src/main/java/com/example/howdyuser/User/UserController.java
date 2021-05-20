@@ -21,13 +21,21 @@ public class UserController {
     @Autowired
     UserService userService;
 
+    @Autowired
+    UserRepository userRepository;
+
+    @GetMapping("/username/{username}")
+    User GetUserByUsername(@PathVariable String username) {
+        return userRepository.findByUsername(username);
+    }
+
     @GetMapping("/users")
     List<User> GetAll(){
         return userService.GetAll();
 
     }
 
-    @PostMapping("/users")
+    @PostMapping("/register")
     User Add(@RequestBody User newUser)  {
 
         try {
