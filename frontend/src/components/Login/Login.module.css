@@ -20,6 +20,17 @@
     left: 10%;
     animation: App-logo-spin infinite 20s linear;
 }
+.connect {
+  position: absolute;
+  top: 70%;
+  left:20%;  
+  font-size: 40px;  
+  animation: text-color-change infinite 1s linear;
+}
+.left {
+  display: flex;
+  flex-direction: column;
+}
   .form {
     font-family: Arial, Helvetica, sans-serif;
     padding: 20px 10px;
@@ -72,5 +83,13 @@ label {
     }
     100% {
         transform: rotate(-30deg);
+    }
+  }
+  @keyframes text-color-change {
+    0% {
+      color: #e66465;
+    }
+    100% {
+        color: #9198e5;
     }
   }

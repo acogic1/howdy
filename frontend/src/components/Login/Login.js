@@ -7,8 +7,9 @@ class Login extends Component {
     render() {
       return (
           <div className={classes.container}>
-            <div>
+            <div className={classes.left}>
                 <img className={classes.logo} src={logo}></img>
+                <span className={classes.connect}>Connects people</span>
             </div>
             <div>
                 <form className={classes.form}>
