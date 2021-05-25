@@ -32,3 +32,13 @@ zuul:
       path: /newsfeed-service/**
       serviceId: newsfeed-service
       stripPrefix: true
+    posts:
+      sensitiveHeaders:
+      path: /post-service/**
+      serviceId: post-service
+      stripPrefix: true
+    message-followers-following-service:
+        sensitiveHeaders:
+        path: /message-followers-following-service/**
+        serviceId: message-followers-following-service
+        stripPrefix: true
