@@ -9,6 +9,7 @@ import Login from './components/Login/Login';
 import Registration from './components/Registration/Registration';
 import Profile from './components/Profile/Profile';
 import NewsFeed from './components/NewsFeed/NewsFeed';
+import Messages from './components/Messages/Messages';
 
 function App() {
   return (
@@ -19,6 +20,7 @@ function App() {
         <Route path="/registration" component={Registration} />        
         <Route path="/profile" component={Profile} />
         <Route path="/newsfeed" component={NewsFeed} />
+        <Route path="/messages" component={Messages} />
       </Switch>
     </BrowserRouter>
     
