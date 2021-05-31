@@ -8,6 +8,22 @@ import Footer from '../Footer/Footer';
 
 
 class Profile extends Component {
+
+    state = {
+        personalInfo: [],
+
+      }
+    
+      componentDidMount() {
+        axios.get(`localhost:8090/mewsfeed-service/api/user`, {
+            headers: { Authorization: "Bearer " + localStorage.token}
+        })
+          .then(res => {
+            const personalInfo = res.data;
+            this.setState({ personalInfo });
+          })
+      }
+
     render() {
       return (
           <div>
