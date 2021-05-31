@@ -1,0 +1,15 @@
+version: '3'
+networks:
+  howdy:
+    driver: bridge
+
+services:
+  discovery:
+    image: eureka
+    build:
+      context: ./Eureka
+      dockerfile: Dockerfile
+    ports:
+      - 8761:8761
+    networks:
+      - howdy
