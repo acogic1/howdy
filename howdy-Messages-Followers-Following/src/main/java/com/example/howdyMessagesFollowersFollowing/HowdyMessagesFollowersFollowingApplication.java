@@ -31,12 +31,12 @@ public class HowdyMessagesFollowersFollowingApplication {
 		SpringApplication.run(HowdyMessagesFollowersFollowingApplication.class, args);
 	}
 
-	/*@Bean
+	@Bean
 	public CommandLineRunner demo(UserRepository userRepository){
 		return (args -> {
-			userRepository.save(new User(1L,"acogic1"));
-			userRepository.save(new User(2L,"dsabic1"));
-			userRepository.save(new User(3L,"vherceglija1"));
+			userRepository.save(new User(1L,"acogic1","11111111"));
+			userRepository.save(new User(2L,"dsabic1","22222222"));
+			userRepository.save(new User(3L,"vherceglija1","33333333"));
 		});
 	}
 
@@ -45,9 +45,9 @@ public class HowdyMessagesFollowersFollowingApplication {
 		return (args -> {
 			Calendar cal=Calendar.getInstance();
 			Date date=cal.getTime();
-			User user1=new User(1L,"acogic1");
-			User user2=new User(2L,"dsabic1");
-			User user3=new User(3L,"vherceglija1");
+			User user1=new User(1L,"acogic1","11111111");
+			User user2=new User(2L,"dsabic1","22222222");
+			User user3=new User(3L,"vherceglija1","33333333");
 			mesageRepository.save(new Message(1L,user1,user2, date,"prva poruka"));
 			mesageRepository.save(new Message(2L,user1,user2, date,"sada malo nastavka"));
 			mesageRepository.save(new Message(3L,user2,user1, date,"kao da ovo radi"));
@@ -60,14 +60,14 @@ public class HowdyMessagesFollowersFollowingApplication {
 	@Bean
 	public CommandLineRunner demo2(SubscriptionRepository subscriptionRepository){
 		return (args -> {
-			User user1=new User(1L,"acogic1");
-			User user2=new User(2L,"dsabic1");
-			User user3=new User(3L,"vherceglija1");
+			User user1=new User(1L,"acogic1","11111111");
+			User user2=new User(2L,"dsabic1","22222222");
+			User user3=new User(3L,"vherceglija1","33333333");
 			subscriptionRepository.save(new Subscription(1L,user1,user2));
 			subscriptionRepository.save(new Subscription(2L,user1,user3));
 			subscriptionRepository.save(new Subscription(3L,user3,user2));
 			subscriptionRepository.save(new Subscription(user2,user1));
 
 		});
-	}*/
+	}
 }
