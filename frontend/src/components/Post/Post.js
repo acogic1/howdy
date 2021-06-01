@@ -16,7 +16,10 @@ class Post extends Component {
                 </div>
               </div>
               <div className={classes.text}>
-                {this.props.post || "Ovo je neki status za testiranje.Ovo je neki status za testiranje.Ovo je neki status za testiranje. "}
+                {this.props.content || "Ovo je neki status za testiranje.Ovo je neki status za testiranje.Ovo je neki status za testiranje. "}
+              </div>
+              <div>
+                <button>REACT</button>
               </div>
           </div>
       )

@@ -42,7 +42,8 @@ handleSubmit(event) {
                 username: localStorage.username
             })
                 .then((response) => {
-                    this.props.history.push('/registration')
+                    console.log(response.data);
+                    this.props.history.push('/profile')
                     /*if (response.data.role == "STUFF") {
                         this.props.history.push('/stuff')
                     }
@@ -57,6 +58,12 @@ handleSubmit(event) {
         }, (error) => {
             this.setState({ errorMessage: "Pogrešni podaci" })
         });
+
+        axios.get(`http://localhost:8090/newsfeed-service/api/user/`+this.state.username)
+          .then(res => {
+            localStorage.id=res.data;
+            console.log(localStorage.id);
+          }).catch(err => (console.log(err)))
 
     event.preventDefault()
 }  

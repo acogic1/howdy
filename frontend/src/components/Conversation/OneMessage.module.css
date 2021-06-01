@@ -1,0 +1,19 @@
+.title {
+    margin: 20px 0;
+    font-size: 28px;
+    text-align: center;
+    font-family: Arial, Helvetica, sans-serif;
+    text-decoration: none;
+    color: #e66465;
+}
+.container {
+    margin: 0 25px;
+    padding: 25px;
+}
+.myMsg {
+    display: block;
+    float: left;
+}
+.username {
+    font-weight: bold;
+}
