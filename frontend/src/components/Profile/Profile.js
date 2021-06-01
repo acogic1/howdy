@@ -5,23 +5,35 @@ import { Link } from 'react-router-dom';
 import Header from '../Header/Header';
 import Post from '../Post/Post';
 import Footer from '../Footer/Footer';
+import axios from 'axios';
 
 
 class Profile extends Component {
 
-    state = {
-        personalInfo: [],
 
-      }
+    constructor() {
+        super()
+        this.state = {
+            personalInfo: [],
+            posts: []
+        }
+    }
     
       componentDidMount() {
-        axios.get(`localhost:8090/mewsfeed-service/api/user`, {
-            headers: { Authorization: "Bearer " + localStorage.token}
-        })
+        axios.get(`http://localhost:8090/newsfeed-service/api/userId/`+localStorage.id)
           .then(res => {
             const personalInfo = res.data;
-            this.setState({ personalInfo });
-          })
+            this.setState({ personalInfo: personalInfo });
+            console.log(personalInfo);
+          }).catch(err => (console.log(err)))
+
+          axios.get(`http://localhost:8090/newsfeed-service/api/posts/`+localStorage.id)
+          .then(res => {
+            const posts = res.data;
+            this.setState({ posts: posts });
+            console.log(posts);
+          }).catch(err => (console.log(err)))
+        
       }
 
     render() {
@@ -36,7 +48,7 @@ class Profile extends Component {
                     </div>
                     <div className={classes.info_right} >
                         <div className={classes.info_right_top}>
-                            <div className={classes.info_right_name}>{this.props.username || "dzejlansabic"}</div>
+                            <div className={classes.info_right_name}>{localStorage.username || "unknown username"}</div>
                             <div className={classes.info_right_edit}>
                                 <button className={classes.info_btn}>Edit profile</button>
                             </div>
@@ -57,13 +69,15 @@ class Profile extends Component {
                     </div>
                 </div>  
                 <div className={classes.posts}>
-                    <Post></Post>
-                    <Post></Post>
-                    <Post></Post>
-                    <Post></Post>
-                    <Post></Post>
-                    <Post></Post>
-                    <Post></Post>
+                    {
+                        this.state.posts.map(post => (
+                            <Post
+                                key={post.id}
+                                username={post.userId.username}
+                                content={post.content} >
+                            </Post>
+                        ))
+                    }
 
                 </div>
             </div>

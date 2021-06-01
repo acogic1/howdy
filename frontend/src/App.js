@@ -10,6 +10,7 @@ import Registration from './components/Registration/Registration';
 import Profile from './components/Profile/Profile';
 import NewsFeed from './components/NewsFeed/NewsFeed';
 import Messages from './components/Messages/Messages';
+import Conversation from './components/Conversation/Conversation';
 
 function App() {
   return (
@@ -21,6 +22,7 @@ function App() {
         <Route path="/profile" component={Profile} />
         <Route path="/newsfeed" component={NewsFeed} />
         <Route path="/messages" component={Messages} />
+        <Route path="/conversation" component={Conversation} />
       </Switch>
     </BrowserRouter>
     
