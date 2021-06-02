@@ -25,7 +25,6 @@ function App() {
         <Route path="/newsfeed" component={NewsFeed} />
         <Route path="/messages" component={Messages} />
         <Route path="/conversation/:username" component={Conversation} />
-        <Route path="/conversation" component={Conversation} />
         <Route path="/followers" component={Followers} />
         <Route path="/following" component={Following} />
       </Switch>
