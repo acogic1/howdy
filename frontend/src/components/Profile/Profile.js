@@ -48,20 +48,24 @@ class Profile extends Component {
                     </div>
                     <div className={classes.info_right} >
                         <div className={classes.info_right_top}>
-                            <div className={classes.info_right_name}>{localStorage.username || "unknown username"}</div>
+                            <div className={classes.info_right_name}>{this.props.username || localStorage.username || "unknown username"}</div>
                             <div className={classes.info_right_edit}>
                                 <button className={classes.info_btn}>Edit profile</button>
                             </div>
                         </div>
                         <div className={classes.info_right_middle}>
-                            <div>
-                                <div>Followers</div>
-                                <div>{this.props.followers || "843"}</div>
-                            </div>
-                            <div>   
-                                <div>Following</div>
-                                <div>{this.props.following || "522"}</div>
-                            </div>
+                            <Link className={classes.LinkF} to="/followers">
+                                <div>
+                                    <div>Followers</div>
+                                    <div>{this.props.followers || "843"}</div>
+                                </div>
+                            </Link>
+                            <Link className={classes.LinkF} to="/following">
+                                <div>   
+                                    <div>Following</div>
+                                    <div>{this.props.following || "522"}</div>
+                                </div>
+                            </Link>
                         </div>
                         <div className={classes.info_right_bottom}>
                             {this.props.description || "ETF Sarajevo. Ovo je neki opis profila."}
