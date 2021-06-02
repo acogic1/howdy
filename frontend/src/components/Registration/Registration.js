@@ -2,9 +2,48 @@ import React, {Component} from 'react';
 import classes from '../Registration/Registration.module.css';
 import logo from '../../images/logo.png'
 import { Link } from 'react-router-dom';
+import axios from "axios";
 
 
 class Registration extends Component {
+  constructor() {
+    super()
+    this.state = {
+        email: "",
+        username: "",
+        password: "",
+        description:"",
+        errorMessage: ""
+    }
+
+    this.handleChange = this.handleChange.bind(this)
+    this.handleSubmit = this.handleSubmit.bind(this)
+}
+
+handleChange(event) {
+    this.setState({
+        [event.target.name]: event.target.value
+    })
+}
+
+handleSubmit(event) {
+
+    window.alert(this.state.email+" "+this.state.username+" "+this.state.password+" "+this.state.description);
+    axios.post('http://localhost:8090/user-service/register', {
+        email: this.state.email,
+        username: this.state.username,
+        password: this.state.password,
+        description: this.state.description
+    })
+        .then((response) => {
+          window.alert(response.status);
+        }, (error) => {
+            this.setState({ errorMessage: "Pogrešni podaci" })
+        });
+
+
+    event.preventDefault()
+}
     render() {
       return (
           <div>
@@ -12,13 +51,13 @@ class Registration extends Component {
                 <img className={classes.logo} src={logo}></img>
                 <span className={classes.connect}>Connects people</span>
               </div>
-              <form className={classes.form}>
+              <form className={classes.form} onSubmit={this.handleSubmit}>
                   <span className={classes.title}>Registration</span>
-                  <label>Username: <input></input></label>
-                  <label>Password: <input type="password"></input></label>
-                  <label>Birthday: <input type="date" id="start" name="trip-start"  min="1960-01-01" max="2021-12-31"></input></label>
-                  <label>What others should know about you?(Description) <textarea></textarea></label>
-                  <button className={classes.btn}>Register</button>
+                  <label>Email: <input name="email" type="email" onChange={this.handleChange}></input></label>
+                  <label>Username: <input name="username" onChange={this.handleChange}></input></label>
+                  <label>Password: <input name="password" type="password" onChange={this.handleChange}></input></label>
+                  <label>What others should know about you?(Description) <textarea name="description" onChange={this.handleChange}></textarea></label>
+                  <button className={classes.btn} type="submit">Register</button>
                   <div className={classes.login}>
                     <div>Already have an account?</div> 
                     <Link to="/login">Log in</Link>

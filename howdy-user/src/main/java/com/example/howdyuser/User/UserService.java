@@ -5,7 +5,11 @@ import com.example.howdyuser.ExceptionClasses.InternalServerException;
 import com.example.howdyuser.ExceptionClasses.NotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.EmptyResultDataAccessException;
+import org.springframework.http.HttpEntity;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
+import org.springframework.web.client.RestTemplate;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.validation.ConstraintViolationException;
@@ -17,6 +21,9 @@ import java.util.stream.Collectors;
 public class UserService {
     @Autowired
     private UserRepository userRepository;
+
+    @Autowired
+    RestTemplate restTemplate;
 
     public List<User> GetAll(){
         try {
@@ -45,6 +52,8 @@ public class UserService {
 
     public User Add(User newUser){
         try {
+            UserDTO userDTO=new UserDTO(newUser.getId(), newUser.getUsername(), newUser.getPassword());
+            InsertUserMFFService(userDTO);
             return  userRepository.save(newUser);
         } catch (NotFoundException e){
             throw e;
@@ -123,5 +132,14 @@ public class UserService {
         catch (Exception e){
             throw new InternalServerException();
         }
+    }
+
+    private void InsertUserMFFService(UserDTO userDTO){
+        HttpHeaders headers = new HttpHeaders();
+        headers.add("Content-Type", "application/json");
+
+        HttpEntity<UserDTO> request = new HttpEntity<>(userDTO, headers);
+
+        ResponseEntity<UserDTO> result = restTemplate.postForEntity("http://messages-followers-following-service/users", request, UserDTO.class);
     }
 }
