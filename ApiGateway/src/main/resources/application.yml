@@ -30,7 +30,7 @@ zuul:
     newsfeed-service:
       sensitiveHeaders:
       path: /newsfeed-service/**
-      url: localhost:8090/newsfeed-service
+      url: http://localhost:8081/
       #serviceId: newsfeed-service
       stripPrefix: true
     posts:
