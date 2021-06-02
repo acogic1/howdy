@@ -7,6 +7,25 @@ import { Link } from 'react-router-dom';
 
 
 class Header extends Component {
+  constructor() {
+    super()
+    this.state = {
+        username: "",
+        password: "",
+        errorMessage: ""
+    }
+
+
+}
+
+clickLogout(){
+
+  window.alert("ss")
+  localStorage.clear();
+}
+
+
+
     render() {
       return (
           <div className={classes.container}>
@@ -18,8 +37,8 @@ class Header extends Component {
                     <Link to="/profile">Profile</Link>
                     <Link to="/messages">Messages</Link>
                     <img className={classes.notif_img} src={notification_image} />
-                    <Link to="/login">
-                        <img className={classes.logout_img} src={logout_image} />
+                    <Link to="/login" onClick={() => this.clickLogout()}>
+                        <img className={classes.logout_img} src={logout_image}/>
                     </Link>
                 </div>
               </div>
