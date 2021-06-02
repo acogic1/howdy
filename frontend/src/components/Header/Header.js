@@ -7,6 +7,13 @@ import { Link } from 'react-router-dom';
 
 
 class Header extends Component {
+
+  constructor() {
+    super()
+    this.state = {
+        notification: []
+    }
+}
     render() {
       return (
           <div className={classes.container}>
