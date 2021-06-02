@@ -31,7 +31,7 @@ handleSubmit(event) {
         password: this.state.password
     })
         .then((response) => {
-            window.alert("idem dalje");
+            window.alert(response);
             this.setState({ errorMessage: "" })
             localStorage.token = response.data.token
             localStorage.username = JSON.parse(atob(localStorage.token.split('.')[1])).sub

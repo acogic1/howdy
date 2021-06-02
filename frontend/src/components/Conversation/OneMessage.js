@@ -22,7 +22,7 @@ class OneMessage extends Component {
                 <div className={classes.myMsg}>
                     <span className={classes.username}>{this.props.username + ": "}</span>
                     <span>
-                        {this.props.msg}
+                        {this.props.content}
                     </span>
                 </div> 
           </div>
