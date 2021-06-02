@@ -11,6 +11,8 @@ import Profile from './components/Profile/Profile';
 import NewsFeed from './components/NewsFeed/NewsFeed';
 import Messages from './components/Messages/Messages';
 import Conversation from './components/Conversation/Conversation';
+import Followers from './components/Follow/Followers';
+import Following from './components/Follow/Following';
 
 function App() {
   return (
@@ -23,6 +25,8 @@ function App() {
         <Route path="/newsfeed" component={NewsFeed} />
         <Route path="/messages" component={Messages} />
         <Route path="/conversation" component={Conversation} />
+        <Route path="/followers" component={Followers} />
+        <Route path="/following" component={Following} />
       </Switch>
     </BrowserRouter>
     
