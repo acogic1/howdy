@@ -29,6 +29,20 @@ public class UserService {
         }
     }
 
+    public Long findIDByUsername(String username){
+        List<User> users=userRepository.findAll();
+        Long id=0L;
+        for (User user:users){
+            if(user.getUsername().equals(username)){
+                id=user.getId();
+            }
+        }
+        if(id.equals(0L)){
+            throw new InternalServerException();
+        }
+        return id;
+    }
+
     public User Add(User newUser){
         try {
             return  userRepository.save(newUser);

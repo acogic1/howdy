@@ -13,12 +13,28 @@ public class User {
 
     @NotNull(message = "Variable username must not be null")
     private String username;
+    @NotNull(message = "Variable password must not be null")
+    private String password;
     @Lob
     private Byte[] picture;
 
-    public User(Long id,@NotNull(message = "Variable username must not be null") String username) {
+    public User(Long id,@NotNull(message = "Variable username must not be null") String username,@NotNull(message = "Variable password must not be null") String password) {
         this.id = id;
         this.username = username;
+        this.password=password;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    public User(@NotNull(message = "Variable username must not be null") String username, @NotNull(message = "Variable password must not be null") String password) {
+        this.username = username;
+        this.password=password;
     }
     public User(@NotNull(message = "Variable username must not be null") String username) {
         this.username = username;

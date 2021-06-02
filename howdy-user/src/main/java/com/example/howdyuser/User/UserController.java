@@ -27,6 +27,17 @@ public class UserController {
 
     }
 
+    @GetMapping("/user/{username}")
+    Long one(@PathVariable String username){
+        try {
+            return userService.findIDByUsername(username);
+        }
+        catch (Exception e){
+            throw new InternalServerException();
+        }
+
+    }
+
     @PostMapping("/users")
     User Add(@RequestBody User newUser)  {
 
