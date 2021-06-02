@@ -1,6 +1,9 @@
 import React, {Component} from 'react';
 import classes from '../Post/Post.module.css';
 import profile_image from '../../images/profile_image.jpg'
+import like from '../../images/like.png'
+import dislike from '../../images/dislike.png'
+
 
 
 
@@ -8,6 +11,7 @@ class Post extends Component {
     render() {
       return (
           <div className={classes.container}>
+
               <div className={classes.top}>
                 <div className={classes.profile_img}><img src={profile_image} /></div>
                 <div className={classes.top_right}>
@@ -18,8 +22,11 @@ class Post extends Component {
               <div className={classes.text}>
                 {this.props.content || "Ovo je neki status za testiranje.Ovo je neki status za testiranje.Ovo je neki status za testiranje. "}
               </div>
-              <div>
-                <button>REACT</button>
+              <div className={classes.bottom}>
+                <button className={classes.reactBtn}><img className={classes.imgReact} src={like}/></button>
+                <button className={classes.reactBtn}><img className={classes.imgReact} src={dislike}/></button>
+                <input className={classes.commentInput}></input>
+                <button className={classes.commentBtn}>Comment</button>
               </div>
           </div>
       )
