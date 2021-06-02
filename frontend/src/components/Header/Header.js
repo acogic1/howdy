@@ -10,21 +10,15 @@ class Header extends Component {
   constructor() {
     super()
     this.state = {
-        username: "",
-        password: "",
-        errorMessage: ""
+        notification: []
     }
-
-
-}
+  }
 
 clickLogout(){
 
   window.alert("ss")
   localStorage.clear();
 }
-
-
 
     render() {
       return (

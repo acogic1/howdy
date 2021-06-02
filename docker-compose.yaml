@@ -13,3 +13,12 @@ services:
       - 8761:8761
     networks:
       - howdy
+  newsfeed:
+    image: newsfeed
+    build:
+      context: ./howdy-newsfeed
+      dockerfile: Dockerfile
+    ports:
+      - 8081:8081
+    networks:
+      - howdy
