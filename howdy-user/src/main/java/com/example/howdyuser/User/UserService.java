@@ -168,7 +168,7 @@ public class UserService {
 
         HttpEntity<UserDTO> request = new HttpEntity<>(userDTO, headers);
 
-        ResponseEntity<UserDTO> result = restTemplate.postForEntity("http://localhost:8090/messages-followers-following-service/users", request, UserDTO.class);
+        ResponseEntity<UserDTO> result = restTemplate.postForEntity("http://messages-followers-following-service/users", request, UserDTO.class);
         System.out.println(result.getStatusCode());
     }
 }
