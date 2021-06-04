@@ -38,7 +38,7 @@ public class UserController {
 
     }
 
-    @PostMapping("/users")
+    @PostMapping("/register")
     User Add(@RequestBody User newUser)  {
 
         try {

@@ -45,6 +45,11 @@ class Following extends Component {
     }
 
     render() {
+      if (!this.state.validToken) {
+        return (
+            <div></div>
+        )
+    }
       return (
           <div className={classes.container}>
             <Header></Header>
