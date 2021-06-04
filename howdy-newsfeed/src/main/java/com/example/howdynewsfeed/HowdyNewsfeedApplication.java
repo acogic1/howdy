@@ -32,7 +32,7 @@ public class HowdyNewsfeedApplication {
 		SpringApplication.run(HowdyNewsfeedApplication.class, args);
 	}
 
-	@Bean
+	/*@Bean
 	public CommandLineRunner demo1(UserRepository userRepository){
 		return (args -> {
 			userRepository.save(new User(1L,"acogic1"));
@@ -110,6 +110,6 @@ public class HowdyNewsfeedApplication {
 			reactionRepository.save(new Reaction(7L,user3,post6, Reaction.TypeReaction.Sad));
 
 		});
-	}
+	}*/
 
 }
