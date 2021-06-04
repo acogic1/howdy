@@ -36,9 +36,7 @@ class Followers extends Component {
             }
         }).then((res)=>{
           const follow = res.data;
-          window.alert(res.data)
             this.setState({ follow: follow });
-            console.log(follow);
         })
           })
       })

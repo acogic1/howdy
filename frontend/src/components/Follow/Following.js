@@ -36,13 +36,16 @@ class Following extends Component {
             }
         }).then((res)=>{
           const follow = res.data;
-          window.alert(res.data)
             this.setState({ follow: follow });
-            console.log(follow);
         })
           })
       })
     }
+
+    displayContent(e, index){
+      e.preventDefault();
+      window.alert("id "+index)
+  }
 
     render() {
       if (!this.state.validToken) {
@@ -55,14 +58,12 @@ class Following extends Component {
             <Header></Header>
            <div className={classes.title}>Following</div>
            <div className={classes.listF}>
-
             {this.state.follow.map(f => (
               <div className={classes.row}>
                 <div className={classes.username}>{f.username}</div>
-                <button className={classes.unfollowBtn}>Unfollow</button>
+                <button type="button" className={classes.unfollowBtn} onClick={(e)=>this.displayContent(e,f.id)}>Unfollow</button>
               </div>
             ))}
-
            </div>
             <Footer></Footer>
           </div>

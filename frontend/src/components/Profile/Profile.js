@@ -15,7 +15,9 @@ class Profile extends Component {
         super()
         this.state = {
             personalInfo: [],
-            posts: []
+            posts: [],
+            followers:[],
+            following:[]
         }
     }
     
@@ -34,6 +36,59 @@ class Profile extends Component {
             console.log(posts);
           }).catch(err => (console.log(err)))
         
+
+          var url = "http://localhost:8090/user-service/validate-token"
+          axios.post(url,{
+            token:localStorage.token,
+            username:localStorage.username
+          }).then((res)=>{
+            this.setState({ validToken: true })
+            var url = "http://localhost:8090/user-service/user/"+localStorage.username
+                //window.alert(url)
+                axios.get(url, {
+                  headers: {
+                      Authorization: "Bearer " + localStorage.token
+                  }
+              }).then((res)=>{
+                var url = "http://localhost:8090/messages-followers-following-service/subscriptions/followers/"+res.data;
+              axios.get(url, {
+                headers: {
+                    Authorization: "Bearer " + localStorage.token
+                }
+            }).then((res)=>{
+              const followers = res.data;
+                this.setState({ followers: followers });
+                
+            })
+              })
+          })
+
+
+          var url = "http://localhost:8090/user-service/validate-token"
+          axios.post(url,{
+            token:localStorage.token,
+            username:localStorage.username
+          }).then((res)=>{
+            this.setState({ validToken: true })
+            var url = "http://localhost:8090/user-service/user/"+localStorage.username
+                //window.alert(url)
+                axios.get(url, {
+                  headers: {
+                      Authorization: "Bearer " + localStorage.token
+                  }
+              }).then((res)=>{
+                var url = "http://localhost:8090/messages-followers-following-service/subscriptions/following/"+res.data;
+              axios.get(url, {
+                headers: {
+                    Authorization: "Bearer " + localStorage.token
+                }
+            }).then((res)=>{
+              const following = res.data;
+                this.setState({ following: following });
+            })
+              })
+          })
+
       }
 
     render() {
@@ -57,13 +112,13 @@ class Profile extends Component {
                             <Link className={classes.LinkF} to="/followers">
                                 <div>
                                     <div>Followers</div>
-                                    <div>{this.props.followers || "843"}</div>
+                                    <div>{this.state.followers.length }</div>
                                 </div>
                             </Link>
                             <Link className={classes.LinkF} to="/following">
                                 <div>   
                                     <div>Following</div>
-                                    <div>{this.props.following || "522"}</div>
+                                    <div>{this.state.following.length }</div>
                                 </div>
                             </Link>
                         </div>
