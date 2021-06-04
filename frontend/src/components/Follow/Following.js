@@ -2,6 +2,7 @@ import React, {Component} from 'react';
 import classes from '../Follow/Follow.module.css';
 import Header from '../Header/Header';
 import Footer from '../Footer/Footer';
+import { Link } from 'react-router-dom';
 import axios from "axios"
 
 

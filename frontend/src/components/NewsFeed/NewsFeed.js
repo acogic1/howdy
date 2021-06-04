@@ -23,6 +23,7 @@ class NewsFeed extends Component {
             const followingId = res.data;
             const id=[];
             followingId.map(fw => ( id.push(fw.id)))
+
             this.setState({ followingId: id });
             console.log(this.state.followingId);
 
