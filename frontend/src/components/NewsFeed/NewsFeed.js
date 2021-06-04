@@ -18,15 +18,27 @@ class NewsFeed extends Component {
     }
     
       componentDidMount() {
-        axios.get(`http://localhost:8090/newsfeed-service/api/postFollowing/`+localStorage.id)
+
+        var url = "http://localhost:8090/user-service/validate-token"
+  axios.post(url,{
+    token:localStorage.token,
+    username:localStorage.username
+  }).then((res)=>{
+        axios.get(`http://localhost:8090/newsfeed-service/api/postFollowing/`+localStorage.id, {
+          headers: {
+              Authorization: "Bearer " + localStorage.token
+          }})
           .then(res => {
             const followingId = res.data;
             const id=[];
             followingId.map(fw => ( id.push(fw.id)))
+            .then()(res => {console.log("RADDDDIIII")
+          }).catch(err=> (console.log("e ne radi")))
+
             this.setState({ followingId: id });
-            console.log(this.state.followingId);
-
-
+            console.log(this.state.followingId)
+        
+        }).catch(err=> (console.log("e ne radi")))
 
             this.state.followingId.map(m => (
                 axios.get(`http://localhost:8090/newsfeed-service/api/posts/`+m)

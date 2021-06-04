@@ -13,6 +13,7 @@ import Messages from './components/Messages/Messages';
 import Conversation from './components/Conversation/Conversation';
 import Followers from './components/Follow/Followers';
 import Following from './components/Follow/Following';
+import otherProfile from './components/otherProfile/otherProfile';
 
 function App() {
   return (
@@ -27,6 +28,8 @@ function App() {
         <Route path="/conversation/:username" component={Conversation} />
         <Route path="/followers" component={Followers} />
         <Route path="/following" component={Following} />
+        <Route path="/otherProfile" component={otherProfile} />
+
       </Switch>
     </BrowserRouter>
     

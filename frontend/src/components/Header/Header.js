@@ -4,14 +4,24 @@ import logo from '../../images/logo.png'
 import notification_image from '../../images/notification_image.jpg';
 import logout_image from '../../images/arrow.png';
 import { Link } from 'react-router-dom';
+import axios from 'axios';
 
 
 class Header extends Component {
   constructor() {
     super()
     this.state = {
-        notification: []
+        notification: [],
+        options:[]
     }
+  }
+
+  componentDidMount() {
+    axios.get('http://localhost:8090/newsfeed-service/api/users')
+    .then(res => {
+      const users = res.data;
+      this.setState({ options: users });
+    }).catch(err => (console.log(err)))
   }
 
 clickLogout(){
@@ -25,7 +35,15 @@ clickLogout(){
           <div className={classes.container}>
               <div className={classes.main_div}>
                 <img className={classes.logo_header} src={logo}/>
-                <input className={classes.search} placeholder={"Search"}></input>
+                <input className={classes.search} list="tags" placeholder={"Search"}></input>
+
+                  <datalist id="tags">
+                  {
+                    this.state.options.map(option => (
+                      <option value={option.username}/>
+                    ))
+                  }
+                  </datalist>
                 <div className={classes.meni}>
                     <Link to="/newsfeed">NewsFeed</Link>
                     <Link to="/profile">Profile</Link>
