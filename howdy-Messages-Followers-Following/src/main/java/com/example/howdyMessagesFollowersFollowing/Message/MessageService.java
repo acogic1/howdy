@@ -110,18 +110,18 @@ public class MessageService {
         try {
             Optional<User> user_sender = userRepository.findById(newMessage.getId_sender().getId());
             Optional<User> user_reciever = userRepository.findById(newMessage.getId_reciever().getId());
-            final String URLSender = "http://user-service/users/"+newMessage.getId_sender().getId();
-            final String URLReciever = "http://user-service/users/"+newMessage.getId_sender().getId();
-            URI uriSender = new URI(URLSender);
-            URI uriReciever = new URI(URLReciever);
+            //final String URLSender = "http://user-service/users/"+newMessage.getId_sender().getId();
+            //final String URLReciever = "http://user-service/users/"+newMessage.getId_sender().getId();
+            //URI uriSender = new URI(URLSender);
+            //URI uriReciever = new URI(URLReciever);
             /*HttpHeaders headers = new HttpHeaders();
             headers.add("Content-Type", "application/json");
             HttpEntity<User> request = new HttpEntity<>(headers);*/
 
-            ResponseEntity<User> resultSender = restTemplate.getForEntity(uriSender, User.class);
-            ResponseEntity<User> resultReciever = restTemplate.getForEntity(uriReciever, User.class);
-            System.out.println(resultSender.getBody().getUsername());
-            System.out.println(resultReciever.getBody().getUsername());
+            //ResponseEntity<User> resultSender = restTemplate.getForEntity(uriSender, User.class);
+            //ResponseEntity<User> resultReciever = restTemplate.getForEntity(uriReciever, User.class);
+            //System.out.println(resultSender.getBody().getUsername());
+            //System.out.println(resultReciever.getBody().getUsername());
 
 
             return messageRepository.save(newMessage);
@@ -130,6 +130,8 @@ public class MessageService {
         } catch (ConstraintViolationException e) {
             throw new BadRequestException(e.getMessage());
         } catch (Exception e) {
+            System.out.println("ovdje je usao");
+            System.out.println(e);
             throw new InternalServerException();
         }
     }
