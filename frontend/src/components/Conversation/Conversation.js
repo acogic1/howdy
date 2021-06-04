@@ -90,7 +90,10 @@ class Conversation extends Component {
                ))
              }
                
-
+            { this.state.mess &&  <div>
+            <input className={classes.message} placeholder="Write message"></input>
+            <button className={classes.btn}>Send</button>
+            </div>}
            </div>
             <Footer></Footer>
           </div>

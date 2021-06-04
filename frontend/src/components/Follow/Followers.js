@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 import classes from '../Follow/Follow.module.css';
 import Header from '../Header/Header';
 import Footer from '../Footer/Footer';
-import MessageItem from '../MessageItem/MessageItem';
+import { Link } from 'react-router-dom';
 import axios from "axios"
 
 
@@ -57,7 +57,9 @@ class Followers extends Component {
            <div className={classes.listF}>
 
             {this.state.follow.map(f => (
+              <Link to={`/otherProfile/${f.username}`}>
                 <div className={classes.username}>{f.username}</div>
+              </Link>
             ))}
 
            </div>

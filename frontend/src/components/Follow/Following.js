@@ -2,6 +2,7 @@ import React, {Component} from 'react';
 import classes from '../Follow/Follow.module.css';
 import Header from '../Header/Header';
 import Footer from '../Footer/Footer';
+import { Link } from 'react-router-dom';
 import axios from "axios"
 
 
@@ -56,7 +57,10 @@ class Following extends Component {
            <div className={classes.listF}>
 
             {this.state.follow.map(f => (
+              <div className={classes.row}>
                 <div className={classes.username}>{f.username}</div>
+                <button className={classes.unfollowBtn}>Unfollow</button>
+              </div>
             ))}
 
            </div>
