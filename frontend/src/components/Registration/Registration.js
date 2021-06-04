@@ -36,11 +36,12 @@ handleSubmit(event) {
         description: this.state.description
     })
         .then((response) => {
-          window.alert(response.status);
+          window.alert("Success registration please login with your data");
+          this.props.history.push('/login')
         }, (error) => {
             this.setState({ errorMessage: "Pogrešni podaci" })
         });
-
+        
 
     event.preventDefault()
 }

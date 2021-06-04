@@ -13,6 +13,31 @@ services:
       - 8761:8761
     networks:
       - howdy
+  apigateway:
+    image: apigateway
+    build:
+      context: ./ApiGateway
+      dockerfile: Dockerfile
+    ports:
+      - 8090:8090
+    depends_on:
+      - discovery
+    networks:
+      - howdy
+  user:
+    image: user
+    build:
+      context: ./howdy-user
+      dockerfile: Dockerfile
+    ports:
+      - 8080:8080
+    depends_on:
+      - discovery
+    environment:
+      - JAVA_OPTS=
+        -DEUREKA_SERVER=http://discovery:8761/eureka
+    networks:
+      - howdy
   newsfeed:
     image: newsfeed
     build:
@@ -20,5 +45,34 @@ services:
       dockerfile: Dockerfile
     ports:
       - 8081:8081
+    networks:
+      - howdy
+  mff:
+    image: mff
+    build:
+      context: ./howdy-Messages-Followers-Following
+      dockerfile: Dockerfile
+    ports:
+      - 8082:8082
+    depends_on:
+      - discovery
+      - user
+    environment:
+      - JAVA_OPTS=
+        -DEUREKA_SERVER=http://discovery:8761/eureka
+    networks:
+      - howdy
+  frontend:
+    image: frontend
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    ports:
+      - 3000:3000
+    depends_on:
+      - discovery
+      - user
+      - mff
+      - newsfeed
     networks:
       - howdy

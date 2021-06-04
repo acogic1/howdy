@@ -6,6 +6,8 @@ import com.example.howdyuser.ExceptionClasses.InternalServerException;
 import com.example.howdyuser.ExceptionClasses.NotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.EmptyResultDataAccessException;
+import org.springframework.hateoas.EntityModel;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -39,7 +41,7 @@ public class UserController {
     }
 
     @PostMapping("/register")
-    User Add(@RequestBody User newUser)  {
+    ResponseEntity<EntityModel<User>> Add(@RequestBody User newUser)  {
 
         try {
             return  userService.Add(newUser);
