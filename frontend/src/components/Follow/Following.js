@@ -57,7 +57,10 @@ class Following extends Component {
            <div className={classes.listF}>
 
             {this.state.follow.map(f => (
+              <div className={classes.row}>
                 <div className={classes.username}>{f.username}</div>
+                <button className={classes.unfollowBtn}>Unfollow</button>
+              </div>
             ))}
 
            </div>

@@ -9,9 +9,25 @@
 .container {
 }
 .listMsg {
+    position: relative;
     border: 1px solid black;
     margin: 0 250px 50px 250px;
+    padding-bottom: 30px;
 }
 .listMsg > :nth-child(n) {
     margin-bottom: 15px;
+}
+.message {
+    position: absolute;
+    left: 0;
+    bottom: 10px;
+    height: 20px;
+    width: 80%;
+    border-radius: 5px;
+}
+.btn {
+    border-radius: 8px;
+    position: absolute;
+    right: 30px;
+    bottom: 10px;
 }
