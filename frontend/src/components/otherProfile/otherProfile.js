@@ -28,18 +28,25 @@ class otherProfile extends Component {
         console.log(this.props);
         this.setState({username: this.props.match.params.username});
 
-        axios.get(`http://localhost:8090/newsfeed-service/api/user/`+this.props.match.params.username)
+        axios.get(`http://localhost:8090/newsfeed-service/api/user/`+this.props.match.params.username, {
+            headers: {
+                Authorization: "Bearer " + localStorage.token
+            }
+        })
           .then(res => {
             const id = res.data;
             this.setState({ id: id });
             console.log(this.state.id);
-          }).catch(err => (console.log(err)))
-
-          axios.get(`http://localhost:8090/newsfeed-service/api/posts/`+this.state.id)
+            axios.get(`http://localhost:8090/newsfeed-service/api/posts/`+this.state.id, {
+            headers: {
+                Authorization: "Bearer " + localStorage.token
+            }
+        })
           .then(res => {
             const posts = res.data;
             this.setState({ posts: posts });
             console.log(posts);
+          }).catch(err => (console.log(err)))
           }).catch(err => (console.log(err)))
         
       }
