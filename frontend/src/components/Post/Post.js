@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import classes from '../Post/Post.module.css';
-import profile_image from '../../images/profile_image.jpg'
+import profile_image from '../../images/user-image.png'
 import like from '../../images/like.png'
 import dislike from '../../images/dislike.png'
 

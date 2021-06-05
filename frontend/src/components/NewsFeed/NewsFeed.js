@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import classes from '../NewsFeed/NewsFeed.module.css';
-import profile_image from '../../images/profile_image.jpg'
+import profile_image from '../../images/user-image.png'
 import Header from '../Header/Header';
 import Post from '../Post/Post';
 import Footer from '../Footer/Footer';

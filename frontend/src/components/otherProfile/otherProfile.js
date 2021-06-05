@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import classes from '../Profile/Profile.module.css';
-import profile_image from '../../images/profile_image.jpg'
+import profile_image from '../../images/user-image.png'
 import { Link } from 'react-router-dom';
 import Header from '../Header/Header';
 import Post from '../Post/Post';
@@ -17,7 +17,9 @@ class otherProfile extends Component {
             username:  "",
             id:"",
             personalInfo: [],
-            posts: []
+            posts: [],
+            followers:[],
+            following:[]
         }
     }
     
@@ -47,6 +49,28 @@ class otherProfile extends Component {
             this.setState({ posts: posts });
             console.log(posts);
           }).catch(err => (console.log(err)))
+
+
+          var url = "http://localhost:8090/messages-followers-following-service/subscriptions/followers/"+this.state.id;
+              axios.get(url, {
+                headers: {
+                    Authorization: "Bearer " + localStorage.token
+                }
+            }).then((res)=>{
+              const followers = res.data;
+                this.setState({ followers: followers });
+                
+            })
+            var url = "http://localhost:8090/messages-followers-following-service/subscriptions/following/"+this.state.id;
+            axios.get(url, {
+              headers: {
+                  Authorization: "Bearer " + localStorage.token
+              }
+          }).then((res)=>{
+            const following = res.data;
+              this.setState({ following: following });
+          })
+
           }).catch(err => (console.log(err)))
         
       }
@@ -69,18 +93,16 @@ class otherProfile extends Component {
                             </div>
                         </div>
                         <div className={classes.info_right_middle}>
-                            <Link className={classes.LinkF} to="/followers">
                                 <div>
                                     <div>Followers</div>
-                                    <div>{this.props.followers || "843"}</div>
+                                    <div>{this.state.followers.length }</div>
                                 </div>
-                            </Link>
-                            <Link className={classes.LinkF} to="/following">
+                            
                                 <div>   
                                     <div>Following</div>
-                                    <div>{this.props.following || "522"}</div>
+                                    <div>{this.state.following.length}</div>
                                 </div>
-                            </Link>
+                           
                         </div>
                         <div className={classes.info_right_bottom}>
                             {this.props.description || "ETF Sarajevo. Ovo je neki opis profila."}

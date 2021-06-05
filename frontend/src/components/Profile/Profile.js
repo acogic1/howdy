@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import classes from '../Profile/Profile.module.css';
-import profile_image from '../../images/profile_image.jpg'
+import profile_image from '../../images/user-image.png'
 import { Link } from 'react-router-dom';
 import Header from '../Header/Header';
 import Post from '../Post/Post';
@@ -17,7 +17,10 @@ class Profile extends Component {
             personalInfo: [],
             posts: [],
             followers:[],
-            following:[]
+            following:[],
+            user:Object,
+            img:null,
+            description:""
         }
     }
     
@@ -97,6 +100,21 @@ class Profile extends Component {
               })
           })
 
+
+          var url = "http://localhost:8090/user-service/users/"+localStorage.id
+                //window.alert(url)
+                axios.get(url, {
+                  headers: {
+                      Authorization: "Bearer " + localStorage.token
+                  }
+              }).then((res)=>{
+                this.state.user=res.data
+                this.state.description=res.data.description
+                //var blob=res.data.picture.blob()
+                //console.log(blob)
+                this.setState({img:res.data.picture})
+                this.setState({})
+              })
       }
 
     render() {
@@ -133,7 +151,7 @@ class Profile extends Component {
                             </Link>
                         </div>
                         <div className={classes.info_right_bottom}>
-                            {this.props.description || "ETF Sarajevo. Ovo je neki opis profila."}
+                            {this.state.description }
                         </div>
                     </div>
                 </div>  
