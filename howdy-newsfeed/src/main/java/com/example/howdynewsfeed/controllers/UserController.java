@@ -1,5 +1,6 @@
 package com.example.howdynewsfeed.controllers;
 
+import com.example.howdynewsfeed.Exceptions.BadRequestException;
 import com.example.howdynewsfeed.Exceptions.InternalServerException;
 import com.example.howdynewsfeed.Exceptions.NotFoundException;
 import com.example.howdynewsfeed.models.Post;
@@ -7,10 +8,12 @@ import com.example.howdynewsfeed.models.User;
 import com.example.howdynewsfeed.repository.UserRepository;
 import com.example.howdynewsfeed.services.PostService;
 import com.example.howdynewsfeed.services.UserService;
+import org.hibernate.exception.ConstraintViolationException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.client.RestTemplate;
 
+import java.net.URISyntaxException;
 import java.util.List;
 
 @RestController
@@ -50,5 +53,26 @@ public class UserController {
         catch (Exception e) {
             throw new NotFoundException("user",username);
         }
+    }
+
+    @PostMapping("/users")
+    User Add( @RequestBody User newUser) throws URISyntaxException {
+
+        try {
+            return  userService.Add(newUser);
+        }
+        catch (ConstraintViolationException e){
+            throw new BadRequestException(e.getMessage());
+            //throw e;
+        }
+        catch (NotFoundException e){
+            throw e;
+        }
+
+        catch (Exception e){
+            throw new BadRequestException(e.getMessage());
+            //throw new InternalServerException();
+        }
+
     }
 }

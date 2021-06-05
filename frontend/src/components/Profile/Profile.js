@@ -22,14 +22,22 @@ class Profile extends Component {
     }
     
       componentDidMount() {
-        axios.get(`http://localhost:8090/newsfeed-service/api/userId/`+localStorage.id)
+        axios.get(`http://localhost:8090/newsfeed-service/api/userId/`+localStorage.id, {
+          headers: {
+              Authorization: "Bearer " + localStorage.token
+          }
+      })
           .then(res => {
             const personalInfo = res.data;
             this.setState({ personalInfo: personalInfo });
             console.log(personalInfo);
           }).catch(err => (console.log(err)))
 
-          axios.get(`http://localhost:8090/newsfeed-service/api/posts/`+localStorage.id)
+          axios.get(`http://localhost:8090/newsfeed-service/api/posts/`+localStorage.id, {
+            headers: {
+                Authorization: "Bearer " + localStorage.token
+            }
+        })
           .then(res => {
             const posts = res.data;
             this.setState({ posts: posts });

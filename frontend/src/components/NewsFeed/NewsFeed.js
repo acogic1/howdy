@@ -18,7 +18,7 @@ class NewsFeed extends Component {
     }
     
       componentDidMount() {
-
+        console.log("ovo je id: " + localStorage.id);
         var url = "http://localhost:8090/user-service/validate-token"
   axios.post(url,{
     token:localStorage.token,
@@ -32,25 +32,24 @@ class NewsFeed extends Component {
             const followingId = res.data;
             const id=[];
             followingId.map(fw => ( id.push(fw.id)))
-            .then()(res => {console.log("RADDDDIIII")
-          }).catch(err=> (console.log("e ne radi")))
-
-            this.setState({ followingId: id });
-            console.log(this.state.followingId)
-        
-        }).catch(err=> (console.log("e ne radi")))
-
+            console.log(followingId);
+            console.log(id);
+            this.setState({ followingId: id }); 
             this.state.followingId.map(m => (
-                axios.get(`http://localhost:8090/newsfeed-service/api/posts/`+m)
-                .then(res2 => {
-                    console.log(res2.data);
-                  this.setState({ posts: [...this.state.posts,...res2.data] });
+              axios.get(`http://localhost:8090/newsfeed-service/api/posts/`+m, {
+                headers: {
+                    Authorization: "Bearer " + localStorage.token
+                }
+            })
+              .then(res2 => {
+                  console.log(res2.data);
+                this.setState({ posts: [...this.state.posts,...res2.data] });
 
-                  console.log(this.state.posts)
-                }).catch(err => (console.log("Error in api/posts")))
-            ))
-
-          }).catch(err => (console.log(err)))
+                console.log(this.state.posts)
+              }).catch(err => (console.log("Error in api/posts")))
+          ))       
+        }).catch(err=> (console.log("e ne radi2")))
+      })
                   
       }
 

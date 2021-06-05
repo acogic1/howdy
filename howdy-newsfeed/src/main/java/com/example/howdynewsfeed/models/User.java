@@ -23,10 +23,10 @@ public class User {
 
     }
 
-    public User (Long id, String username) {
+    /*public User (Long id, String username) {
         this.id=id;
         this.username=username;
-    }
+    }*/
 
     public User (Long id, String username, String password) {
         this.id=id;

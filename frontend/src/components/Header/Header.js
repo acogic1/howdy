@@ -17,7 +17,11 @@ class Header extends Component {
   }
 
   componentDidMount() {
-    axios.get('http://localhost:8090/newsfeed-service/api/users')
+    axios.get('http://localhost:8090/newsfeed-service/api/users', {
+      headers: {
+          Authorization: "Bearer " + localStorage.token
+      }
+  })
     .then(res => {
       const users = res.data;
       this.setState({ options: users });

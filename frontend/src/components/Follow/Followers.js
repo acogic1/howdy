@@ -56,7 +56,7 @@ class Followers extends Component {
            <div className={classes.listF}>
 
             {this.state.follow.map(f => (
-              <Link to={`/otherProfile'${f.username}`}>
+              <Link to={`/otherProfile/${f.username}`}>
                 <div className={classes.username}>{f.username}</div>
               </Link>
             ))}

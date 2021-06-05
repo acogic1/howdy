@@ -32,13 +32,13 @@ public class HowdyNewsfeedApplication {
 		SpringApplication.run(HowdyNewsfeedApplication.class, args);
 	}
 
-	/*@Bean
+	@Bean
 	public CommandLineRunner demo1(UserRepository userRepository){
 		return (args -> {
-			userRepository.save(new User(1L,"acogic1"));
-			userRepository.save(new User(2L,"dsabic1"));
-			userRepository.save(new User(3L,"vherceglija1"));
-			userRepository.save(new User(4L,"ghostUser"));
+			userRepository.save(new User(1L,"acogic1","11111111"));
+			userRepository.save(new User(2L,"dsabic1","22222222"));
+			userRepository.save(new User(3L,"vherceglija1","33333333"));
+			userRepository.save(new User(4L,"ghostUser","ghostpw"));
 
 		});
 	}
@@ -46,9 +46,9 @@ public class HowdyNewsfeedApplication {
 	@Bean
 	public CommandLineRunner demo2(PostRepository postRepository){
 		return (args -> {
-			User user1 = new User(1L,"acogic1");
-			User user2 = new User(2L,"dsabic1");
-			User user3 = new User(3L,"vherceglija1");
+			User user1 = new User(1L,"acogic1","11111111");
+			User user2 = new User(2L,"dsabic1", "22222222");
+			User user3 = new User(3L,"vherceglija1","33333333");
 
 			postRepository.save(new Post(1L,user2,"Neki content"));
 			postRepository.save(new Post(2L,user1, "Ovo je neki post"));
@@ -64,9 +64,9 @@ public class HowdyNewsfeedApplication {
 	public CommandLineRunner demo3(CommentRepository commentRepository){
 		return (args -> {
 
-			User user1 = new User(1L,"acogic1");
-			User user2 = new User(2L,"dsabic1");
-			User user3 = new User(3L,"vherceglija1");
+			User user1 = new User(1L,"acogic1","11111111");
+			User user2 = new User(2L,"dsabic1", "22222222");
+			User user3 = new User(3L,"vherceglija1","33333333");
 
 			Post post1 = new Post(1L,user2,"Neki content");
 			Post post2 = new Post(2L,user1,"Ovo je neki post");
@@ -90,9 +90,9 @@ public class HowdyNewsfeedApplication {
 
 		return (args -> {
 
-			User user1 = new User(1L,"acogic1");
-			User user2 = new User(2L,"dsabic1");
-			User user3 = new User(3L,"vherceglija1");
+			User user1 = new User(1L,"acogic1","11111111");
+			User user2 = new User(2L,"dsabic1", "22222222");
+			User user3 = new User(3L,"vherceglija1","33333333");
 
 			Post post1 = new Post(1L,user2,"Neki content");
 			Post post2 = new Post(user1,"Ovo je neki post");
@@ -110,6 +110,6 @@ public class HowdyNewsfeedApplication {
 			reactionRepository.save(new Reaction(7L,user3,post6, Reaction.TypeReaction.Sad));
 
 		});
-	}*/
+	}
 
 }
