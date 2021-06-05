@@ -1,4 +1,4 @@
-package com.example.howdyMessagesFollowersFollowing.Security;
+package com.example.howdynewsfeed.Security;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

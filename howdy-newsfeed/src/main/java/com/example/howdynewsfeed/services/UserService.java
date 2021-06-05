@@ -1,10 +1,12 @@
 package com.example.howdynewsfeed.services;
 
+import com.example.howdynewsfeed.Exceptions.BadRequestException;
 import com.example.howdynewsfeed.Exceptions.InternalServerException;
 import com.example.howdynewsfeed.Exceptions.NotFoundException;
 import com.example.howdynewsfeed.models.Post;
 import com.example.howdynewsfeed.models.User;
 import com.example.howdynewsfeed.repository.UserRepository;
+import org.hibernate.exception.ConstraintViolationException;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -31,6 +33,23 @@ public class UserService {
     public User getUserById(Long Id) {
         return UserRepository.findById(Id)
                 .orElseThrow(() -> new NotFoundException("user",Id));
+    }
+    public User Add(User newUser){
+        try {
+            return  UserRepository.save(newUser);
+        }
+        catch (ConstraintViolationException e){
+            throw new BadRequestException(e.getMessage());
+            //throw e;
+        }
+        catch (NotFoundException e){
+            throw e;
+        }
+
+        catch (Exception e){
+            throw new BadRequestException(e.getMessage());
+            //throw new InternalServerException();
+        }
     }
 
     public Long findIdByUsername(String username) {

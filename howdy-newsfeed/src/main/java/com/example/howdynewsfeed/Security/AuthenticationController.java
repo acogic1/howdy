@@ -1,7 +1,7 @@
-package com.example.howdyMessagesFollowersFollowing.Security;
+package com.example.howdynewsfeed.Security;
 
-import com.example.howdyMessagesFollowersFollowing.User.User;
-import com.example.howdyMessagesFollowersFollowing.User.UserRepository;
+import com.example.howdynewsfeed.models.User;
+import com.example.howdynewsfeed.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -18,7 +18,7 @@ public class AuthenticationController {
     private AuthenticationManager authenticationManager;
 
     @Autowired
-    private MyUserDetailsService userDetailsService;
+    private com.example.howdynewsfeed.Security.MyUserDetailsService userDetailsService;
 
     @Autowired
     private JwtUtil jwtUtil;

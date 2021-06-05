@@ -1,4 +1,4 @@
-package com.example.howdyMessagesFollowersFollowing.Security;
+package com.example.howdynewsfeed.Security;
 
 public class ValidationRS {
     private String username;

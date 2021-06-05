@@ -1,4 +1,4 @@
-package com.example.howdyMessagesFollowersFollowing.Security;
+package com.example.howdynewsfeed.Security;
 
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;

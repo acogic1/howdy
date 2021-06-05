@@ -8,11 +8,11 @@ import com.example.howdynewsfeed.models.Reaction;
 import com.example.howdynewsfeed.models.User;
 import com.example.howdynewsfeed.services.PostService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpEntity;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpMethod;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.client.RestTemplate;
 
 import java.util.Arrays;
@@ -43,9 +43,16 @@ public class PostController {
     }
 
     @GetMapping("postFollowing/{userId}")
-    public List<User> getFollowingFromUser (@PathVariable("userId") Long id) {
+    public List<User> getFollowingFromUser (@RequestHeader("Authorization") String token, @PathVariable("userId")  Long id) {
 
-            ResponseEntity<User[]> responseEntity = restTemplate.getForEntity("http://messages-followers-following-service/subscriptions/following/" + id, User[].class);
+        HttpHeaders headers = new HttpHeaders();
+        headers.add("Content-Type", "application/json");
+        headers.add("Authorization", token);
+        HttpEntity<Long> request = new HttpEntity<>(id, headers);
+
+        //ResponseEntity<BookDTO> result = restTemplate.postForEntity("http://user-service/books", request, BookDTO.class);
+
+            ResponseEntity<User[]> responseEntity = restTemplate.exchange("http://messages-followers-following-service/subscriptions/following/" + id, HttpMethod.GET,request, User[].class);
             User[] users = responseEntity.getBody();
 
             if(users.length == 0) throw new NotFoundException("following for user", id);

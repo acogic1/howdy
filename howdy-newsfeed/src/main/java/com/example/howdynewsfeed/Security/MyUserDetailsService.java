@@ -1,7 +1,7 @@
-package com.example.howdyMessagesFollowersFollowing.Security;
+package com.example.howdynewsfeed.Security;
 
 //import com.example.howdyuser.User.User;
-import com.example.howdyMessagesFollowersFollowing.User.UserRepository;
+import com.example.howdynewsfeed.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.User;
@@ -21,7 +21,7 @@ public class MyUserDetailsService implements UserDetailsService {
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         //Connect with database
-        com.example.howdyMessagesFollowersFollowing.User.User user = userRepository.findByUsername(username);
+        com.example.howdynewsfeed.models.User user = userRepository.findByUsername(username);
         List<SimpleGrantedAuthority> authorities = Arrays.asList(new SimpleGrantedAuthority(user.getUsername()));
         return new User(user.getUsername(), user.getPassword(), authorities);
     }
