@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import classes from '../Profile/Profile.module.css';
 import profile_image from '../../images/profile_image.jpg'
-import { Link, useParams } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import Header from '../Header/Header';
 import Post from '../Post/Post';
 import Footer from '../Footer/Footer';
@@ -15,6 +15,7 @@ class otherProfile extends Component {
         super(props)
         this.state = {
             username:  "",
+            id:"",
             personalInfo: [],
             posts: []
         }
@@ -22,21 +23,24 @@ class otherProfile extends Component {
     
       componentDidMount() {
         const { match: { params } } = this.props;
-        this.setState({username: params.username});
+        console.log("parametri");
 
-        // axios.get(`http://localhost:8090/newsfeed-service/api/userId/`+localStorage.id)
-        //   .then(res => {
-        //     const personalInfo = res.data;
-        //     this.setState({ personalInfo: personalInfo });
-        //     console.log(personalInfo);
-        //   }).catch(err => (console.log(err)))
+        console.log(this.props);
+        this.setState({username: this.props.match.params.username});
 
-        //   axios.get(`http://localhost:8090/newsfeed-service/api/posts/`+localStorage.id)
-        //   .then(res => {
-        //     const posts = res.data;
-        //     this.setState({ posts: posts });
-        //     console.log(posts);
-        //   }).catch(err => (console.log(err)))
+        axios.get(`http://localhost:8090/newsfeed-service/api/user/`+this.props.match.params.username)
+          .then(res => {
+            const id = res.data;
+            this.setState({ id: id });
+            console.log(this.state.id);
+          }).catch(err => (console.log(err)))
+
+          axios.get(`http://localhost:8090/newsfeed-service/api/posts/`+this.state.id)
+          .then(res => {
+            const posts = res.data;
+            this.setState({ posts: posts });
+            console.log(posts);
+          }).catch(err => (console.log(err)))
         
       }
 

@@ -1,0 +1,22 @@
+.forma {
+    display: flex;
+    flex-direction: column;
+    width: fit-content;
+    margin: 0 auto;
+    border: 1px solid black;
+    padding: 15px;
+}
+.title {
+    
+    margin: 20px 0;
+    font-size: 28px;
+    text-align: center;
+    font-family: Arial, Helvetica, sans-serif;
+    text-decoration: none;
+    color: #e66465;
+}
+.btnSave {
+    width: fit-content;
+    margin: 0 auto;
+    border-radius: 5px;
+}

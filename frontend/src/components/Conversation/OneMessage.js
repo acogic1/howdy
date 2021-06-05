@@ -1,7 +1,5 @@
 import React, {Component} from 'react';
 import classes from '../Conversation/OneMessage.module.css';
-import Header from '../Header/Header';
-import Footer from '../Footer/Footer';
 
 
 class OneMessage extends Component {

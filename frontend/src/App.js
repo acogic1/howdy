@@ -3,7 +3,7 @@ import React from 'react';
 import {
   BrowserRouter,
   Switch,
-  Route
+  Route 
 } from 'react-router-dom';
 import Login from './components/Login/Login';
 import Registration from './components/Registration/Registration';
@@ -14,6 +14,7 @@ import Conversation from './components/Conversation/Conversation';
 import Followers from './components/Follow/Followers';
 import Following from './components/Follow/Following';
 import otherProfile from './components/otherProfile/otherProfile';
+import EditProfile from './components/EditProfile/EditProfile';
 
 function App() {
   return (
@@ -28,7 +29,8 @@ function App() {
         <Route path="/conversation/:username" component={Conversation} />
         <Route path="/followers" component={Followers} />
         <Route path="/following" component={Following} />
-        <Route path="/otherProfile" component={otherProfile} />
+        <Route path="/edit" component={EditProfile} />
+        <Route path="/otherProfile/:username" component={otherProfile} />
 
       </Switch>
     </BrowserRouter>
