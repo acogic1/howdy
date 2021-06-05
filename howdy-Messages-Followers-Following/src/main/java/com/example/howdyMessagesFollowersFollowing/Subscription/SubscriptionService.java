@@ -141,4 +141,30 @@ public class SubscriptionService {
             throw new InternalServerException();
         }
     }
+
+    public void DeleteSubs(Long id1,Long id2){
+        try {
+            List<Subscription> subscriptions=subscriptionRepository.findAll();
+
+            Long id=0L;
+            for (Subscription s:subscriptions){
+                if(s.getId_follower().getId().equals(id1) && s.getId_following().getId().equals(id2)){
+                    id=s.getId();
+                }
+            }
+            if(id!=0L){
+                subscriptionRepository.deleteById(id);
+            }
+            else{
+                throw new InternalServerException();
+            }
+        }
+        catch (EmptyResultDataAccessException e){
+            throw new NotFoundException("subscription",id1);
+            //throw new UserNotFoundException(id);
+        }
+        catch (Exception e){
+            throw new InternalServerException();
+        }
+    }
 }

@@ -103,4 +103,17 @@ public class SubscriptionController {
             throw new InternalServerException();
         }
     }
+
+    @DeleteMapping("/subscriptions/{id1}/{id2}")
+    void DeleteSubs(@PathVariable Long id1,@PathVariable Long id2) {
+        try {
+            subscriptionService.DeleteSubs(id1,id2);
+        }
+        catch (EmptyResultDataAccessException ex) {
+            throw new NotFoundException("user", id1);
+        }
+        catch (Exception ex) {
+            throw new InternalServerException();
+        }
+    }
 }
