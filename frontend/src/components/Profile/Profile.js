@@ -105,7 +105,9 @@ class Profile extends Component {
                         <div className={classes.info_right_top}>
                             <div className={classes.info_right_name}>{this.props.username || localStorage.username || "unknown username"}</div>
                             <div className={classes.info_right_edit}>
-                                <button className={classes.info_btn}>Edit profile</button>
+                                <Link to="/edit">
+                                <button  className={classes.info_btn}>Edit profile</button>
+                                </Link>
                             </div>
                         </div>
                         <div className={classes.info_right_middle}>

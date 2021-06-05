@@ -3,7 +3,6 @@ import classes from '../Conversation/Conversation.module.css';
 import Header from '../Header/Header';
 import Footer from '../Footer/Footer';
 import OneMessage from './OneMessage';
-import {Link, useLocation, useParams} from "react-router-dom";
 import axios from "axios"
 
 

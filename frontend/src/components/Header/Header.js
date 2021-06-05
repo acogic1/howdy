@@ -40,7 +40,7 @@ clickLogout(){
                   <datalist id="tags">
                   {
                     this.state.options.map(option => (
-                      <option value={option.username}/>
+                      <option key={option.id} value={option.username}/>
                     ))
                   }
                   </datalist>

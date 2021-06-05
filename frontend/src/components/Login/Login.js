@@ -56,7 +56,7 @@ handleSubmit(event) {
                 })
 
         }, (error) => {
-            this.setState({ errorMessage: "Pogrešni podaci" })
+            this.setState({ errorMessage: "Incorrect password or username" });
         });
 
         axios.get(`http://localhost:8090/newsfeed-service/api/user/`+this.state.username)
@@ -80,6 +80,11 @@ handleSubmit(event) {
                     <span className={classes.title}>Log In</span>
                     <label>Username: <input name="username" onChange={this.handleChange}></input></label>
                     <label>Password: <input name="password" type="password" onChange={this.handleChange}></input></label>
+                    {this.state.errorMessage ? 
+                        <div className={classes.error}>{this.state.errorMessage}</div>
+                    :
+                    null
+                    }
                     <button className={classes.btn} type="submit">Log in</button>
                     <Link to="/registration" className={classes.forget}>Forget password?</Link>
                 </form>
