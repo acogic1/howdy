@@ -11,7 +11,11 @@ class Following extends Component {
     constructor() {
         super()
         this.state = {
-            follow: []
+          validToken: false,
+            follow: [],
+            uid:0,
+            follower:Object,
+            following:Object
         }
     }
 
@@ -29,6 +33,7 @@ class Following extends Component {
                   Authorization: "Bearer " + localStorage.token
               }
           }).then((res)=>{
+            this.state.uid=res.data
             var url = "http://localhost:8090/messages-followers-following-service/subscriptions/following/"+res.data;
           axios.get(url, {
             headers: {
@@ -42,9 +47,34 @@ class Following extends Component {
       })
     }
 
-    displayContent(e, index){
+    displayContent(e, index,username){
       e.preventDefault();
-      window.alert("id "+index)
+      var url = "http://localhost:8090/user-service/users/"+this.state.uid  
+          axios.get(url, {
+            headers: {
+                Authorization: "Bearer " + localStorage.token
+            }
+        }).then((res)=>{
+          this.state.follower=res.data
+          var url = "http://localhost:8090/user-service/users/"+index 
+          axios.get(url, {
+            headers: {
+                Authorization: "Bearer " + localStorage.token
+            }
+        }).then((res)=>{
+          this.state.following=res.data
+
+          var url = "http://localhost:8090/messages-followers-following-service/subscriptions/"+this.state.uid+"/"+index;
+          axios.delete(url, {
+            headers: {
+                Authorization: "Bearer " + localStorage.token
+            }
+        }).then((res)=>{
+          window.alert("Successfull unfollow "+username)
+          window.location.reload();
+        })
+        })
+        })
   }
 
     render() {
@@ -61,7 +91,7 @@ class Following extends Component {
             {this.state.follow.map(f => (
               <div className={classes.row}>
                 <div className={classes.username}>{f.username}</div>
-                <button type="button" className={classes.unfollowBtn} onClick={(e)=>this.displayContent(e,f.id)}>Unfollow</button>
+                <button type="button" className={classes.unfollowBtn} onClick={(e)=>this.displayContent(e,f.id,f.username)}>Unfollow</button>
               </div>
             ))}
            </div>

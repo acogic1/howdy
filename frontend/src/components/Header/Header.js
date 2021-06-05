@@ -30,7 +30,6 @@ class Header extends Component {
 
 clickLogout(){
 
-  window.alert("ss")
   localStorage.clear();
 }
 
