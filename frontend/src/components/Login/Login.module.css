@@ -74,6 +74,10 @@ label {
 .btn:hover {
     box-shadow: 4px 4px grey;
 }
+.error {
+  color: red;
+  font-size: 10px;
+}
 @keyframes App-logo-spin {
     0% {
       transform: rotate(-30deg);
