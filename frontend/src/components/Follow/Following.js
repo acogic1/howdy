@@ -11,6 +11,7 @@ class Following extends Component {
     constructor() {
         super()
         this.state = {
+          validToken: false,
             follow: [],
             uid:0,
             follower:Object,

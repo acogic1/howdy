@@ -33,10 +33,7 @@ handleChange(event) {
   })
 }
 
-handleRefresh = () => {
-  // by calling this method react re-renders the component
-  this.setState({});
-};
+
 
 handleSubmit(event) {
   //window.alert(this.state.message)

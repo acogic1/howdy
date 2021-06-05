@@ -28,7 +28,7 @@ handleChange(event) {
 
 handleSubmit(event) {
 
-    window.alert(this.state.email+" "+this.state.username+" "+this.state.password+" "+this.state.description);
+    //window.alert(this.state.email+" "+this.state.username+" "+this.state.password+" "+this.state.description);
     axios.post('http://localhost:8090/user-service/register', {
         email: this.state.email,
         username: this.state.username,
