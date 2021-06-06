@@ -26,6 +26,10 @@ handleChange(event) {
 }
 
 handleSubmit(event) {
+    axios.post('http://localhost:8090/newsfeed-service/api/users', {
+        username: this.state.username,
+        password: this.state.password
+    })
 
     axios.post('http://localhost:8090/user-service/register', {
         email: this.state.email,

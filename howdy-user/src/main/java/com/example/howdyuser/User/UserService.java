@@ -3,6 +3,7 @@ package com.example.howdyuser.User;
 import com.example.howdyuser.ExceptionClasses.BadRequestException;
 import com.example.howdyuser.ExceptionClasses.InternalServerException;
 import com.example.howdyuser.ExceptionClasses.NotFoundException;
+import org.hibernate.boot.jaxb.hbm.spi.JaxbHbmSynchronizeType;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,6 +11,7 @@ import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.ResponseEntity;
+import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.multipart.MultipartFile;
@@ -67,15 +69,14 @@ public class UserService {
                     .created(entityModel.getRequiredLink(IanaLinkRelations.SELF).toUri())
                     .body(entityModel);
             logger.debug("prije poziva");
-            System.out.println("prije poziva");
-            System.out.println(result.getStatusCode());
             //HttpHeaders headers = new HttpHeaders();
             //headers.add("Content-Type", "application/json");
 
             UserDTO userDTO=new UserDTO(newUser.getId(), newUser.getUsername(), newUser.getPassword());
             //HttpEntity<UserDTO> request = new HttpEntity<>(userDTO, headers);
-
             InsertUserMFFService(userDTO);
+            System.out.println("prije poziva");
+
             //final String URLSender = "http://messages-followers-following-service/users";
             //URI uriSender = new URI(URLSender);
             //ResponseEntity<UserDTO> resultSender = restTemplate.postForEntity(uriSender,request, UserDTO.class);
@@ -160,6 +161,7 @@ public class UserService {
         }
     }
 
+
     private void InsertUserMFFService(UserDTO userDTO){
         logger.debug("pozvao");
         System.out.println("pozvao se");
@@ -168,7 +170,9 @@ public class UserService {
 
         HttpEntity<UserDTO> request = new HttpEntity<>(userDTO, headers);
 
+
         ResponseEntity<UserDTO> result = restTemplate.postForEntity("http://messages-followers-following-service/users", request, UserDTO.class);
-        System.out.println(result.getStatusCode());
     }
+
+
 }

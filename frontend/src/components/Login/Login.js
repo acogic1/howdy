@@ -75,7 +75,7 @@ handleSubmit(event) {
                     null
                     }
                     <button className={classes.btn} type="submit">Log in</button>
-                    <Link to="/registration" className={classes.forget}>Forget password?</Link>
+                    <Link to="/registration" className={classes.forget}>Register</Link>
                 </form>
               </div>
           </div>
