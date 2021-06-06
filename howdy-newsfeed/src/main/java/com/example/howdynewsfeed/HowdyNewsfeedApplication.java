@@ -22,7 +22,7 @@ import org.springframework.web.client.RestTemplate;
 //@EnableZuulProxy
 public class HowdyNewsfeedApplication {
 
-    /*@Bean
+    @Bean
     @LoadBalanced
     public RestTemplate restTemplate() {
         return new RestTemplate();
@@ -137,6 +137,6 @@ public class HowdyNewsfeedApplication {
 			reactionRepository.save(new Reaction(7L,user3,post6, Reaction.TypeReaction.Sad));
 
 		});
-	}*/
+	}
 
 }
