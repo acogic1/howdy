@@ -17,7 +17,8 @@ class otherProfile extends Component {
             personalInfo: [],
             posts: [],
             followers:[],
-            following:[]
+            following:[],
+            description:""
         }
     }
     
@@ -66,6 +67,16 @@ class otherProfile extends Component {
           })
 
           }).catch(err => (console.log(err)))
+
+          var url = "http://localhost:8090/user-service/users/"+localStorage.id
+                axios.get(url, {
+                  headers: {
+                      Authorization: "Bearer " + localStorage.token
+                  }
+              }).then((res)=>{
+                this.state.description=res.data.description
+                this.setState({})
+              })
         
       }
 
@@ -99,7 +110,7 @@ class otherProfile extends Component {
                            
                         </div>
                         <div className={classes.info_right_bottom}>
-                            {this.props.description || "ETF Sarajevo. Ovo je neki opis profila."}
+                            {this.state.description }
                         </div>
                     </div>
                 </div>  
