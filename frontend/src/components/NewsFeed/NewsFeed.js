@@ -6,7 +6,6 @@ import Post from '../Post/Post';
 import Footer from '../Footer/Footer';
 import axios from 'axios';
 
-
 class NewsFeed extends Component {
 
     constructor() {
@@ -18,7 +17,6 @@ class NewsFeed extends Component {
     }
     
       componentDidMount() {
-        console.log("ovo je id: " + localStorage.id);
         var url = "http://localhost:8090/user-service/validate-token"
   axios.post(url,{
     token:localStorage.token,
@@ -32,8 +30,6 @@ class NewsFeed extends Component {
             const followingId = res.data;
             const id=[];
             followingId.map(fw => ( id.push(fw.id)))
-            console.log(followingId);
-            console.log(id);
             this.setState({ followingId: id }); 
             this.state.followingId.map(m => (
               axios.get(`http://localhost:8090/newsfeed-service/api/posts/`+m, {
@@ -42,10 +38,7 @@ class NewsFeed extends Component {
                 }
             })
               .then(res2 => {
-                  console.log(res2.data);
                 this.setState({ posts: [...this.state.posts,...res2.data] });
-
-                console.log(this.state.posts)
               }).catch(err => (console.log("Error in api/posts")))
           ))       
         }).catch(err=> (console.log("e ne radi2")))
@@ -60,7 +53,7 @@ class NewsFeed extends Component {
             <div className={classes.container}>
                 <div className={classes.newPost}>
                     <div className={classes.top}>
-                        <div><img className={classes.img_post} src={profile_image} /></div>
+                        <div><img className={classes.img_post} alt="profile" src={profile_image} /></div>
                         <div><input className={classes.post_input} placeholder="What's on your mind?"></input></div>
                     </div>
                     <div>

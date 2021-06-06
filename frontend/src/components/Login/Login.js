@@ -1,4 +1,4 @@
-import React, {Component} from 'react';
+import React from 'react';
 import classes from '../Login/Login.module.css';
 import { Link } from 'react-router-dom';
 import logo from '../../images/logo.png'
@@ -24,14 +24,11 @@ handleChange(event) {
 }
 
 handleSubmit(event) {
-
-    window.alert("jesam");
     axios.post('http://localhost:8090/user-service/authenticate', {
         username: this.state.username,
         password: this.state.password
     })
         .then((response) => {
-            window.alert(response);
             this.setState({ errorMessage: "" })
             localStorage.token = response.data.token
             localStorage.username = JSON.parse(atob(localStorage.token.split('.')[1])).sub
@@ -51,27 +48,12 @@ handleSubmit(event) {
                       .then(res => {
                         localStorage.id=res.data;
                         this.props.history.push('/profile')
-                        console.log(localStorage.id);
                       }).catch(err => (console.log(err)))
-
-                    console.log(response.data);
-                    /*if (response.data.role == "STUFF") {
-                        this.props.history.push('/stuff')
-                    }
-                    else if (response.data.role == "ADMIN") {
-                        this.props.history.push('/adminpage')
-                    }
-                    else if (response.data.role == "MEMBER") {
-                        this.props.history.push('/member')
-                    }*/
                 })
 
         }, (error) => {
             this.setState({ errorMessage: "Incorrect password or username" });
         });
-
-        
-
     event.preventDefault()
 }  
   
@@ -79,7 +61,7 @@ handleSubmit(event) {
       return (
           <div className={classes.container}>
             <div className={classes.left}>
-                <img className={classes.logo} src={logo}></img>
+                <img className={classes.logo} alt="logo" src={logo}></img>
                 <span className={classes.connect}>Connects people</span>
             </div>
             <div>

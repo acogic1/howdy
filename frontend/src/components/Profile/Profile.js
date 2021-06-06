@@ -7,9 +7,7 @@ import Post from '../Post/Post';
 import Footer from '../Footer/Footer';
 import axios from 'axios';
 
-
 class Profile extends Component {
-
 
     constructor() {
         super()
@@ -46,7 +44,6 @@ class Profile extends Component {
             this.setState({ posts: posts });
             console.log(posts);
           }).catch(err => (console.log(err)))
-        
 
           var url = "http://localhost:8090/user-service/validate-token"
           axios.post(url,{
@@ -55,7 +52,6 @@ class Profile extends Component {
           }).then((res)=>{
             this.setState({ validToken: true })
             var url = "http://localhost:8090/user-service/user/"+localStorage.username
-                //window.alert(url)
                 axios.get(url, {
                   headers: {
                       Authorization: "Bearer " + localStorage.token
@@ -69,7 +65,6 @@ class Profile extends Component {
             }).then((res)=>{
               const followers = res.data;
                 this.setState({ followers: followers });
-                
             })
               })
           })
@@ -82,7 +77,6 @@ class Profile extends Component {
           }).then((res)=>{
             this.setState({ validToken: true })
             var url = "http://localhost:8090/user-service/user/"+localStorage.username
-                //window.alert(url)
                 axios.get(url, {
                   headers: {
                       Authorization: "Bearer " + localStorage.token
@@ -102,7 +96,6 @@ class Profile extends Component {
 
 
           var url = "http://localhost:8090/user-service/users/"+localStorage.id
-                //window.alert(url)
                 axios.get(url, {
                   headers: {
                       Authorization: "Bearer " + localStorage.token
@@ -110,8 +103,6 @@ class Profile extends Component {
               }).then((res)=>{
                 this.state.user=res.data
                 this.state.description=res.data.description
-                //var blob=res.data.picture.blob()
-                //console.log(blob)
                 this.setState({img:res.data.picture})
                 this.setState({})
               })
@@ -125,7 +116,7 @@ class Profile extends Component {
             <div className={classes.container}>
                 <div className={classes.info} >
                     <div>
-                        <img className={classes.profile_img} src={profile_image}/>
+                        <img className={classes.profile_img} alt="profile" src={profile_image}/>
                     </div>
                     <div className={classes.info_right} >
                         <div className={classes.info_right_top}>

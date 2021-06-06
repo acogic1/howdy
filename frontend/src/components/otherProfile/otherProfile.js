@@ -1,7 +1,6 @@
 import React, {Component} from 'react';
 import classes from '../Profile/Profile.module.css';
 import profile_image from '../../images/user-image.png'
-import { Link } from 'react-router-dom';
 import Header from '../Header/Header';
 import Post from '../Post/Post';
 import Footer from '../Footer/Footer';
@@ -9,7 +8,6 @@ import axios from 'axios';
 
 
 class otherProfile extends Component {
-
 
     constructor(props) {
         super(props)
@@ -25,9 +23,7 @@ class otherProfile extends Component {
     
       componentDidMount() {
         const { match: { params } } = this.props;
-        console.log("parametri");
 
-        console.log(this.props);
         this.setState({username: this.props.match.params.username});
 
         axios.get(`http://localhost:8090/newsfeed-service/api/user/`+this.props.match.params.username, {
@@ -38,7 +34,6 @@ class otherProfile extends Component {
           .then(res => {
             const id = res.data;
             this.setState({ id: id });
-            console.log(this.state.id);
             axios.get(`http://localhost:8090/newsfeed-service/api/posts/`+this.state.id, {
             headers: {
                 Authorization: "Bearer " + localStorage.token
@@ -47,7 +42,6 @@ class otherProfile extends Component {
           .then(res => {
             const posts = res.data;
             this.setState({ posts: posts });
-            console.log(posts);
           }).catch(err => (console.log(err)))
 
 
@@ -83,7 +77,7 @@ class otherProfile extends Component {
             <div className={classes.container}>
                 <div className={classes.info} >
                     <div>
-                        <img className={classes.profile_img} src={profile_image}/>
+                        <img className={classes.profile_img} alt="logo" src={profile_image}/>
                     </div>
                     <div className={classes.info_right} >
                         <div className={classes.info_right_top}>

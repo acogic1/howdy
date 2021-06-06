@@ -5,8 +5,6 @@ import Footer from '../Footer/Footer';
 import OneMessage from './OneMessage';
 import axios from "axios"
 
-
-
 class Conversation extends Component {
   constructor(props) {
     super(props)
@@ -33,14 +31,8 @@ handleChange(event) {
   })
 }
 
-
-
 handleSubmit(event) {
-  //window.alert(this.state.message)
-  //window.alert(this.state.u1)
-  //window.alert(this.state.u2)
   var url = "http://localhost:8090/user-service/users/"+this.state.u1
-          //window.alert(url)
           axios.get(url, {
             headers: {
                 Authorization: "Bearer " + localStorage.token
@@ -48,15 +40,12 @@ handleSubmit(event) {
         }).then((res)=>{
           this.state.uu1=res.data
           var url = "http://localhost:8090/user-service/users/"+this.state.u2
-          //window.alert(url)
           axios.get(url, {
             headers: {
                 Authorization: "Bearer " + localStorage.token
             }
         }).then((res)=>{
           this.state.uu2=res.data
-          //console.log(this.state.uu1)
-          //console.log(this.state.uu2)
           
           var url = "http://localhost:8090/messages-followers-following-service/messages";
           const options = {
@@ -71,18 +60,14 @@ handleSubmit(event) {
       content:this.state.message
     },options).then((res)=>{
       window.location.reload();
-      //this.handleRefresh()
     })
         })
         })
     event.preventDefault()
 }
   
-
-
   componentWillMount() {
     const { match: { params } } = this.props;
-    //window.alert(params.username)
     this.state.user=params.username;
     var url = "http://localhost:8090/user-service/validate-token"
   axios.post(url,{
@@ -91,7 +76,6 @@ handleSubmit(event) {
   }).then((res)=>{
       this.setState({ validToken: true })
       var url = "http://localhost:8090/user-service/user/"+localStorage.username
-          //window.alert(url)
           axios.get(url, {
             headers: {
                 Authorization: "Bearer " + localStorage.token
@@ -99,29 +83,24 @@ handleSubmit(event) {
         }).then((res)=>{
           this.state.u1=res.data;
           var url = "http://localhost:8090/user-service/user/"+params.username;
-          //window.alert(url)
           axios.get(url, {
             headers: {
                 Authorization: "Bearer " + localStorage.token
             }
         })
           .then((res)=>{
-          this.state.u2=res.data;
-          var url = "http://localhost:8090/messages-followers-following-service/messages/conversation/"+this.state.u1+"/"+this.state.u2;
-          //window.alert(url);
-          
-          axios.get(url, {
-            headers: {
-                Authorization: "Bearer " + localStorage.token
-            }
-        }).then((res)=>{
-          const mess = res.data;
-          //window.alert(mess.length)
-            this.setState({ mess: mess });
-            this.state.draz=mess.length;
-            //console.log(mess);
-        })
-          
+              this.state.u2=res.data;
+              var url = "http://localhost:8090/messages-followers-following-service/messages/conversation/"+this.state.u1+"/"+this.state.u2;
+              
+              axios.get(url, {
+                headers: {
+                    Authorization: "Bearer " + localStorage.token
+                }
+            }).then((res)=>{
+              const mess = res.data;
+              this.setState({ mess: mess });
+              this.state.draz=mess.length;
+            })
         })
         })
   })
@@ -129,31 +108,31 @@ handleSubmit(event) {
     render() {
       if (!this.state.validToken) {
         return (
-            <div></div>
+          <div></div>
         )
     }
       return (
           <div className={classes.container}>
             <Header></Header>
-           <div className={classes.title}>{this.state.user || "User"}</div>
-           <div className={classes.listMsg}>
-           {
-               this.state.mess.map(inb =>(
-                 <OneMessage
-                  key={inb.id}
-                  username={inb.id_sender.username}
-                  content={inb.content}>
+            <div className={classes.title}>{this.state.user || "User"}</div>
+            <div className={classes.listMsg}>
+            {
+                this.state.mess.map(inb =>(
+                  <OneMessage
+                    key={inb.id}
+                    username={inb.id_sender.username}
+                    content={inb.content}>
 
-                  </OneMessage>
-               ))
-             }
-               
-            { this.state.mess &&  <div>
-            <form className={classes.form} onSubmit={this.handleSubmit}>
-              <input className={classes.message} placeholder="Write message" name="message" onChange={this.handleChange}></input>
-              <button className={classes.btn} type="submit">Send</button>
-            </form>
-            </div>}
+                    </OneMessage>
+                ))
+              }
+              { this.state.mess &&  
+              <div>
+                <form className={classes.form} onSubmit={this.handleSubmit}>
+                  <input className={classes.message} placeholder="Write message" name="message" onChange={this.handleChange}></input>
+                  <button className={classes.btn} type="submit">Send</button>
+                </form>
+              </div>}
            </div>
             <Footer></Footer>
           </div>
