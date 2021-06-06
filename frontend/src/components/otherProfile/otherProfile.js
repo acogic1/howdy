@@ -58,9 +58,7 @@ class otherProfile extends Component {
             }
         }).then((res)=>{
             this.state.f2=res.data
-            console.log(this.state.f2)
             this.state.description=res.data.description
-            window.alert(this.state.description)
             this.setState({})
         })
 
