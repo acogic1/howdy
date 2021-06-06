@@ -4,7 +4,6 @@ import logo from '../../images/logo.png'
 import { Link } from 'react-router-dom';
 import axios from "axios";
 
-
 class Registration extends Component {
   constructor() {
     super()
@@ -28,7 +27,6 @@ handleChange(event) {
 
 handleSubmit(event) {
 
-    //window.alert(this.state.email+" "+this.state.username+" "+this.state.password+" "+this.state.description);
     axios.post('http://localhost:8090/user-service/register', {
         email: this.state.email,
         username: this.state.username,
@@ -40,7 +38,7 @@ handleSubmit(event) {
         }, (error) => {
             this.setState({ errorMessage: "Pogrešni podaci" })
         });
-        window.alert("Success registration please login with your data");
+        window.alert("Success registration, please login with your data");
         this.props.history.push('/login')
 
     event.preventDefault()
@@ -49,7 +47,7 @@ handleSubmit(event) {
       return (
           <div>
               <div className={classes.left}>
-                <img className={classes.logo} src={logo}></img>
+                <img className={classes.logo} alt="logo" src={logo}></img>
                 <span className={classes.connect}>Connects people</span>
               </div>
               <form className={classes.form} onSubmit={this.handleSubmit}>

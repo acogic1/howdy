@@ -10,9 +10,6 @@ class OneMessage extends Component {
             
         }
     }
-    componentDidMount() {
-
-    }
 
     render() {
       return (

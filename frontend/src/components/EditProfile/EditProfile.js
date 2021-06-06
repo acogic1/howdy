@@ -1,12 +1,7 @@
 import React, {Component} from 'react';
 import classes from '../EditProfile/EditProfile.module.css';
-import logo from '../../images/logo.png'
-import notification_image from '../../images/notification_image.jpg';
-import logout_image from '../../images/arrow.png';
-import { Link } from 'react-router-dom';
 import axios from 'axios';
 import Header from '../Header/Header';
-
 
 class EditProfile extends Component {
   constructor() {
@@ -31,7 +26,6 @@ class EditProfile extends Component {
 
 handleSubmit(event) {
   var url = "http://localhost:8090/user-service/users/"+this.state.uid
-            //window.alert(url)
             const options = {
               headers: {
                 Authorization: "Bearer " + localStorage.token
@@ -43,7 +37,7 @@ handleSubmit(event) {
               password:this.state.password,
               description:this.state.description
           },options).then((res)=>{
-            window.alert("Successifull edit your profile")
+            window.alert("Successifully edited profile")
             localStorage.clear();
             window.location.replace("/login")
           })
@@ -59,14 +53,12 @@ handleSubmit(event) {
       }).then((res)=>{
         this.setState({ validToken: true })
         var url = "http://localhost:8090/user-service/user/"+localStorage.username
-            //window.alert(url)
             axios.get(url, {
               headers: {
                   Authorization: "Bearer " + localStorage.token
               }
           }).then((res)=>{
             var url = "http://localhost:8090/user-service/users/"+res.data
-            //window.alert(url)
             this.state.uid=res.data
             axios.get(url, {
               headers: {

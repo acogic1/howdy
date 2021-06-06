@@ -2,9 +2,9 @@ import React, {Component} from 'react';
 import classes from '../Follow/Follow.module.css';
 import Header from '../Header/Header';
 import Footer from '../Footer/Footer';
+import profile_image from '../../images/user-image.png'
 import { Link } from 'react-router-dom';
 import axios from "axios"
-
 
 class Following extends Component {
 
@@ -27,7 +27,6 @@ class Following extends Component {
       }).then((res)=>{
         this.setState({ validToken: true })
         var url = "http://localhost:8090/user-service/user/"+localStorage.username
-            //window.alert(url)
             axios.get(url, {
               headers: {
                   Authorization: "Bearer " + localStorage.token
@@ -89,10 +88,13 @@ class Following extends Component {
            <div className={classes.title}>Following</div>
            <div className={classes.listF}>
             {this.state.follow.map(f => (
-              <div className={classes.row}>
-                <div className={classes.username}>{f.username}</div>
-                <button type="button" className={classes.unfollowBtn} onClick={(e)=>this.displayContent(e,f.id,f.username)}>Unfollow</button>
-              </div>
+              <Link className={classes.linkFollow} to={`/otherProfile/${f.username}`}>
+                <div className={classes.row}>
+                  <img src={profile_image} alt="profile"></img>
+                  <div className={classes.username}>{f.username}</div>
+                  <button type="button" className={classes.unfollowBtn} onClick={(e)=>this.displayContent(e,f.id,f.username)}>Unfollow</button>
+                </div>
+              </Link>
             ))}
            </div>
             <Footer></Footer>
