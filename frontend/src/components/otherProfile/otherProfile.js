@@ -17,7 +17,11 @@ class otherProfile extends Component {
             personalInfo: [],
             posts: [],
             followers:[],
-            following:[]
+            following:[],
+            description:"",
+            follbutt:false,
+            f1:Object,
+            f2:Object
         }
     }
     
@@ -25,6 +29,8 @@ class otherProfile extends Component {
         const { match: { params } } = this.props;
 
         this.setState({username: this.props.match.params.username});
+
+        
 
         axios.get(`http://localhost:8090/newsfeed-service/api/user/`+this.props.match.params.username, {
             headers: {
@@ -44,6 +50,19 @@ class otherProfile extends Component {
             this.setState({ posts: posts });
           }).catch(err => (console.log(err)))
 
+
+          var url = "http://localhost:8090/user-service/users/"+this.state.id
+          axios.get(url, {
+            headers: {
+                Authorization: "Bearer " + localStorage.token
+            }
+        }).then((res)=>{
+            this.state.f2=res.data
+            console.log(this.state.f2)
+            this.state.description=res.data.description
+            window.alert(this.state.description)
+            this.setState({})
+        })
 
           var url = "http://localhost:8090/messages-followers-following-service/subscriptions/followers/"+this.state.id;
               axios.get(url, {
@@ -66,8 +85,67 @@ class otherProfile extends Component {
           })
 
           }).catch(err => (console.log(err)))
+
+          var url = "http://localhost:8090/user-service/users/"+localStorage.id
+                axios.get(url, {
+                  headers: {
+                      Authorization: "Bearer " + localStorage.token
+                  }
+              }).then((res)=>{
+                this.state.f1=res.data
+                //this.state.description=res.data.description
+                this.state.follbutt=true
+
+                this.state.followers.map(f =>{
+                    if(f.id==localStorage.id){
+                        this.state.follbutt=false
+                    }
+                })
+
+                this.setState({})
+              })
+
+             
         
       }
+
+      displayContent(e){
+        e.preventDefault();
+        //console.log(this.props)
+
+        
+    
+            const options = {
+                headers: {
+                  Authorization: "Bearer " + localStorage.token
+              }
+              };
+            var url = "http://localhost:8090/messages-followers-following-service/subscriptions/"
+          axios.post(url, {
+            id_follower:this.state.f1,
+            id_following:this.state.f2
+          },options).then((res)=>{
+            var url = "http://localhost:8090/messages-followers-following-service/messages";
+            const options = {
+              headers: {
+                Authorization: "Bearer " + localStorage.token
+            }
+            };
+    axios.post(url,
+      {
+        id_sender:this.state.f1,
+        id_reciever:this.state.f2,
+        content:"I'm following you"
+      },options).then((res)=>{
+        window.alert("Successfull follow "+this.props.match.params.username)
+            window.location.reload();
+      })
+            
+          })
+        
+        
+      }
+
 
     render() {
       return (
@@ -82,9 +160,11 @@ class otherProfile extends Component {
                     <div className={classes.info_right} >
                         <div className={classes.info_right_top}>
                             <div className={classes.info_right_name}>{this.state.username || "unknown username"}</div>
-                            <div className={classes.info_right_edit}>
-                                <button className={classes.info_btn}>Follow</button>
-                            </div>
+                            { this.state.follbutt ? 
+                             <div className={classes.info_right_edit}>
+                             <button type="button" className={classes.info_btn} onClick={(e)=>this.displayContent(e)}>Follow</button>
+                            </div> :null
+                            }
                         </div>
                         <div className={classes.info_right_middle}>
                                 <div>
@@ -99,7 +179,7 @@ class otherProfile extends Component {
                            
                         </div>
                         <div className={classes.info_right_bottom}>
-                            {this.props.description || "ETF Sarajevo. Ovo je neki opis profila."}
+                            {this.state.description }
                         </div>
                     </div>
                 </div>  

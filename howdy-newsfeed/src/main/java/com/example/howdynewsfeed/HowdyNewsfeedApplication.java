@@ -43,7 +43,7 @@ public class HowdyNewsfeedApplication {
 			userRepository.save(new User(6L,"Dino Merlin","dino"));
 			userRepository.save(new User(7L,"Abraham Lincoln","abraham"));
 			userRepository.save(new User(8L,"zdravkocolic","zdravko"));
-
+			//userRepository.save(new User(4L,"ghostUser","ghostpw"));
 
 		});
 	}

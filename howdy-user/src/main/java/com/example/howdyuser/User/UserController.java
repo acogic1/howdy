@@ -49,7 +49,7 @@ public class UserController {
     ResponseEntity<EntityModel<User>> Add(@RequestBody User newUser)  {
 
         try {
-            LogActivity(new Date().toString(), "UserMicroservice", "Default", "POST", "Users", true, 200);
+            //LogActivity(new Date().toString(), "UserMicroservice", "Default", "POST", "Users", true, 200);
             return  userService.Add(newUser);
         } catch (NotFoundException e){
             throw e;
